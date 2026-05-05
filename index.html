@@ -122,9 +122,17 @@
           Welcome
         </button>
         <button
+          id="tab-getting-started"
+          type="button"
+          class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          aria-current="false"
+        >
+          Getting Started
+        </button>
+        <button
           id="tab-ops"
           type="button"
-          class="rounded-lg bg-slate-800 px-4 py-2 text-sm font-medium hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
           aria-current="false"
         >
           Agents for Ops
@@ -158,6 +166,16 @@
           aria-label="Welcome content"
         >
           Loading welcome page...
+        </div>
+      </section>
+
+      <section id="panel-getting-started" class="hidden rounded-xl border border-slate-800 bg-slate-900 p-5">
+        <div
+          id="getting-started-content"
+          class="md min-h-[320px] overflow-auto text-slate-100"
+          aria-label="Getting Started content"
+        >
+          Loading getting started page...
         </div>
       </section>
 
@@ -643,13 +661,16 @@
 
       const CONTENT_EL = document.getElementById("ops-content");
       const WELCOME_CONTENT_EL = document.getElementById("welcome-content");
+      const GETTING_STARTED_CONTENT_EL = document.getElementById("getting-started-content");
       const PAGE_TITLE_EL = document.getElementById("ops-page-title");
       const BTN_PREV = document.getElementById("ops-prev");
       const BTN_NEXT = document.getElementById("ops-next");
       const TAB_WELCOME = document.getElementById("tab-welcome");
+      const TAB_GETTING_STARTED = document.getElementById("tab-getting-started");
       const TAB_OPS = document.getElementById("tab-ops");
       const TAB_SCIENCE = document.getElementById("tab-science");
       const PANEL_WELCOME = document.getElementById("panel-welcome");
+      const PANEL_GETTING_STARTED = document.getElementById("panel-getting-started");
       const PANEL_OPS = document.getElementById("panel-ops");
       const OPS_INTRO_CARD = document.getElementById("ops-intro-card");
       const MOBILE_JUMP_CONTROLS = document.getElementById("mobile-jump-controls");
@@ -662,9 +683,11 @@
       const MOBILE_JUMP_SELECT = document.getElementById("mobile-jump-select");
       const SITE_LAST_UPDATED = document.getElementById("site-last-updated");
       const WELCOME_PATH = "content/welcome.md";
+      const GETTING_STARTED_PATH = "content/getting-started.md";
 
       let lastLoadedHash = "";
       let lastLoadedWelcome = false;
+      let lastLoadedGettingStarted = false;
       /** false = outline lists only the selected track; true = all tracks */
       let outlineAllTracks = false;
 
@@ -698,6 +721,7 @@
       function parseHash() {
         const raw = window.location.hash.replace(/^#/, "").trim();
         if (raw === "welcome") return { mode: "welcome" };
+        if (raw === "getting-started") return { mode: "getting-started" };
         if (!raw) return null;
         const parts = raw.split("/").filter(Boolean);
         if (parts.length < 2) return null;
@@ -922,25 +946,26 @@
 
       function setTopTab(active) {
         const isWelcome = active === "welcome";
-        TAB_WELCOME?.setAttribute("aria-current", isWelcome ? "page" : "false");
-        TAB_OPS?.setAttribute("aria-current", isWelcome ? "false" : "page");
-        TAB_WELCOME?.classList.toggle("bg-slate-800", isWelcome);
-        TAB_WELCOME?.classList.toggle("text-slate-100", isWelcome);
-        TAB_WELCOME?.classList.toggle("ring-1", isWelcome);
-        TAB_WELCOME?.classList.toggle("ring-sky-500/40", isWelcome);
-        TAB_WELCOME?.classList.toggle("bg-slate-900", !isWelcome);
-        TAB_WELCOME?.classList.toggle("text-slate-300", !isWelcome);
-
-        TAB_OPS?.classList.toggle("bg-slate-800", !isWelcome);
-        TAB_OPS?.classList.toggle("text-slate-100", !isWelcome);
-        TAB_OPS?.classList.toggle("ring-1", !isWelcome);
-        TAB_OPS?.classList.toggle("ring-sky-500/40", !isWelcome);
-        TAB_OPS?.classList.toggle("bg-slate-900", isWelcome);
-        TAB_OPS?.classList.toggle("text-slate-300", isWelcome);
+        const isGettingStarted = active === "getting-started";
+        const isOps = active === "ops";
+        [
+          [TAB_WELCOME, isWelcome],
+          [TAB_GETTING_STARTED, isGettingStarted],
+          [TAB_OPS, isOps],
+        ].forEach(([tab, isActive]) => {
+          tab?.setAttribute("aria-current", isActive ? "page" : "false");
+          tab?.classList.toggle("bg-slate-800", isActive);
+          tab?.classList.toggle("text-slate-100", isActive);
+          tab?.classList.toggle("ring-1", isActive);
+          tab?.classList.toggle("ring-sky-500/40", isActive);
+          tab?.classList.toggle("bg-slate-900", !isActive);
+          tab?.classList.toggle("text-slate-300", !isActive);
+        });
         TAB_SCIENCE?.classList.add("bg-slate-900", "text-slate-600");
         TAB_SCIENCE?.classList.remove("bg-slate-800", "text-slate-100", "ring-1", "ring-sky-500/40");
         PANEL_WELCOME?.classList.toggle("hidden", !isWelcome);
-        PANEL_OPS?.classList.toggle("hidden", isWelcome);
+        PANEL_GETTING_STARTED?.classList.toggle("hidden", !isGettingStarted);
+        PANEL_OPS?.classList.toggle("hidden", !isOps);
       }
 
       function setOpsGlossaryMode(enabled) {
@@ -1047,6 +1072,7 @@
           setTopTab("welcome");
           if (lastLoadedWelcome) return;
           lastLoadedWelcome = true;
+          lastLoadedGettingStarted = false;
           lastLoadedHash = "";
           if (WELCOME_CONTENT_EL) {
             WELCOME_CONTENT_EL.innerHTML = "Loading welcome page...";
@@ -1065,8 +1091,32 @@
           return;
         }
 
+        if (parsed?.mode === "getting-started") {
+          setTopTab("getting-started");
+          if (lastLoadedGettingStarted) return;
+          lastLoadedGettingStarted = true;
+          lastLoadedWelcome = false;
+          lastLoadedHash = "";
+          if (GETTING_STARTED_CONTENT_EL) {
+            GETTING_STARTED_CONTENT_EL.innerHTML = "Loading getting started page...";
+            try {
+              const mdText = await loadMarkdown(GETTING_STARTED_PATH);
+              const dirtyHtml = marked.parse(mdText);
+              const cleanHtml = DOMPurify.sanitize(dirtyHtml, { USE_PROFILES: { html: true } });
+              GETTING_STARTED_CONTENT_EL.innerHTML = cleanHtml;
+              if (window.Prism && typeof window.Prism.highlightAllUnder === "function") {
+                window.Prism.highlightAllUnder(GETTING_STARTED_CONTENT_EL);
+              }
+            } catch (err) {
+              GETTING_STARTED_CONTENT_EL.innerHTML = `<div class="rounded-lg border border-red-900/50 bg-red-950/30 p-4"><div class="text-sm font-medium text-red-200">Could not load getting started page.</div><div class="mt-2 text-xs break-words text-red-300">${escapeHtml(String(err.message || err))}</div></div>`;
+            }
+          }
+          return;
+        }
+
         setTopTab("ops");
         lastLoadedWelcome = false;
+        lastLoadedGettingStarted = false;
         const valid =
           parsed &&
           parsed.mode === "ops" &&
@@ -1183,6 +1233,13 @@
         TAB_WELCOME?.addEventListener("click", () => {
           if (location.hash !== "#welcome") {
             location.hash = "#welcome";
+          } else {
+            loadPageForHash();
+          }
+        });
+        TAB_GETTING_STARTED?.addEventListener("click", () => {
+          if (location.hash !== "#getting-started") {
+            location.hash = "#getting-started";
           } else {
             loadPageForHash();
           }
