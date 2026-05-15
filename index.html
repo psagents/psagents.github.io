@@ -1,5 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="night">
+  <script>
+      try {
+        var _t = localStorage.getItem("lcls-theme");
+        if (_t === "day" || _t === "night") document.documentElement.setAttribute("data-theme", _t);
+      } catch (_) {}
+    </script>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +13,37 @@
 
     <!-- Tailwind (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              curriculum: {
+                bg: "rgb(var(--c-bg) / <alpha-value>)",
+                panel: "rgb(var(--c-panel) / <alpha-value>)",
+                elevated: "rgb(var(--c-elevated) / <alpha-value>)",
+                hover: "rgb(var(--c-hover) / <alpha-value>)",
+                deep: "rgb(var(--c-deep) / <alpha-value>)",
+                border: "rgb(var(--c-border) / <alpha-value>)",
+                borderlight: "rgb(var(--c-borderlight) / <alpha-value>)",
+                ink: "rgb(var(--c-ink) / <alpha-value>)",
+                parchment: "rgb(var(--c-parchment) / <alpha-value>)",
+                muted: "rgb(var(--c-muted) / <alpha-value>)",
+                soft: "rgb(var(--c-soft) / <alpha-value>)",
+                faint: "rgb(var(--c-faint) / <alpha-value>)",
+                accent: "rgb(var(--c-accent) / <alpha-value>)",
+                "accent-hover": "rgb(var(--c-accent-hover) / <alpha-value>)",
+                warm: "rgb(var(--c-warm) / <alpha-value>)",
+                "warm-muted": "rgb(var(--c-warm-muted) / <alpha-value>)",
+              },
+            },
+            boxShadow: {
+              "deck-inset": "var(--shadow-deck-inset)",
+            },
+          },
+        },
+      };
+    </script>
 
     <!-- Markdown rendering + sanitization -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -17,6 +54,21 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
     />
+    <style id="prism-deck-overrides">
+      /* Prism sits on shared --c-pre surface */
+      pre[class*="language-"] {
+        background: rgb(var(--c-pre) / 1) !important;
+        text-shadow: none;
+      }
+      html[data-theme="night"] :not(pre) > code[class*="language-"] {
+        background: rgba(42, 35, 28, 0.85) !important;
+        color: rgb(var(--c-ink) / 1) !important;
+      }
+      html[data-theme="day"] :not(pre) > code[class*="language-"] {
+        background: rgb(228 220 210 / 0.95) !important;
+        color: rgb(var(--c-ink) / 1) !important;
+      }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
@@ -26,6 +78,58 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
 
     <style>
+      html {
+        color-scheme: dark;
+        --c-bg: 22 17 17;
+        --c-panel: 30 25 20;
+        --c-elevated: 42 35 28;
+        --c-hover: 53 44 36;
+        --c-deep: 16 13 10;
+        --c-pre: 26 21 18;
+        --c-border: 61 52 44;
+        --c-borderlight: 79 69 58;
+        --c-ink: 244 240 232;
+        --c-parchment: 250 246 237;
+        --c-muted: 196 184 168;
+        --c-soft: 154 143 130;
+        --c-faint: 110 101 91;
+        --c-accent: 199 91 60;
+        --c-accent-hover: 224 116 82;
+        --c-warm: 168 107 69;
+        --c-warm-muted: 139 86 56;
+        --shadow-deck-inset: inset 0 1px 0 0 rgba(244, 240, 232, 0.055);
+        --md-pre-inset: inset 0 1px 0 0 rgba(244, 240, 232, 0.04);
+        --curriculum-pre: rgb(var(--c-pre) / 1);
+        --curriculum-deep: rgb(var(--c-deep) / 1);
+        --curriculum-ink: rgb(var(--c-ink) / 1);
+        --curriculum-bg: rgb(var(--c-bg) / 1);
+      }
+      html[data-theme="day"] {
+        color-scheme: light;
+        --c-bg: 252 249 242;
+        --c-panel: 255 253 248;
+        --c-elevated: 240 233 223;
+        --c-hover: 228 220 208;
+        --c-deep: 42 36 30;
+        --c-pre: 48 40 34;
+        --c-border: 200 190 175;
+        --c-borderlight: 214 204 188;
+        --c-ink: 28 22 18;
+        --c-parchment: 255 252 246;
+        --c-muted: 92 84 76;
+        --c-soft: 120 110 100;
+        --c-faint: 160 150 138;
+        --c-accent: 176 68 42;
+        --c-accent-hover: 199 91 60;
+        --c-warm: 140 88 55;
+        --c-warm-muted: 118 72 48;
+        --shadow-deck-inset: inset 0 1px 0 0 rgba(45, 38, 30, 0.07);
+        --md-pre-inset: inset 0 1px 0 0 rgba(45, 38, 30, 0.08);
+        --curriculum-pre: rgb(var(--c-pre) / 1);
+        --curriculum-deep: rgb(var(--c-deep) / 1);
+        --curriculum-ink: rgb(var(--c-ink) / 1);
+        --curriculum-bg: rgb(var(--c-bg) / 1);
+      }
       /* Lightweight markdown styling (no Tailwind typography plugin needed). */
       .md h1 {
         font-size: 1.6rem;
@@ -59,13 +163,72 @@
         padding: 1rem;
         overflow: auto;
         border-radius: 0.75rem;
-        background: #0b1020;
+        background: var(--curriculum-pre);
+        box-shadow: var(--md-pre-inset);
+      }
+      .md pre[class*="language-"],
+      .md code[class*="language-"] {
+        background: transparent !important;
+      }
+      .md .calendar-embed {
+        margin: 0.75rem 0;
+        overflow: hidden;
+        border-radius: 0.75rem;
+        border: 1px solid rgb(var(--c-border) / 1);
+        background: rgb(var(--c-elevated) / 0.35);
+      }
+      .md .calendar-embed iframe {
+        display: block;
+        width: 100%;
+        min-height: 560px;
+        border: 0;
+      }
+      .md ul.useful-resources {
+        list-style-type: disc;
+        margin: 0.65rem 0 0.85rem;
+        padding-left: 1.35rem;
+      }
+      .md ul.useful-resources li {
+        margin: 0.5rem 0;
+        line-height: 1.5;
+      }
+      .md ul.useful-resources a {
+        color: rgb(var(--c-accent) / 1);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .md ul.useful-resources a:hover {
+        color: rgb(var(--c-accent-hover) / 1);
+      }
+      .md ul.useful-resources small {
+        font-size: 0.82rem;
+        color: rgb(var(--c-muted) / 1);
+        font-weight: 400;
+      }
+      #theme-toggle .theme-icon-day,
+      #theme-toggle .theme-icon-night {
+        display: none;
+      }
+      html[data-theme="night"] #theme-toggle .theme-icon-day {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      html[data-theme="day"] #theme-toggle .theme-icon-night {
+        display: inline-block;
+        vertical-align: middle;
       }
       .track-btn:not([aria-current="true"]) .track-chevron {
         opacity: 0;
       }
       .track-btn[aria-current="true"] .track-chevron {
         opacity: 1;
+      }
+      .outline-link:focus-visible,
+      .glossary-link:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px rgb(var(--c-bg) / 1), 0 0 0 4px rgb(var(--c-accent) / 1);
+        border-radius: 0.25rem;
       }
       .md.glossary-readable p,
       .md.glossary-readable li {
@@ -74,7 +237,7 @@
       .md.glossary-readable h3 {
         margin-top: 1.2rem;
         padding-top: 1rem;
-        border-top: 1px solid rgba(71, 85, 105, 0.45);
+        border-top: 1px solid rgb(var(--c-border) / 0.55);
       }
       .md.glossary-readable h2 + h3 {
         margin-top: 0.75rem;
@@ -84,13 +247,50 @@
     </style>
   </head>
 
-  <body class="bg-slate-950 text-slate-100">
+  <body class="bg-curriculum-bg text-curriculum-ink">
     <div class="mx-auto max-w-7xl px-4 py-6">
       <header class="mb-6 flex flex-row items-start justify-between gap-4">
         <div class="min-w-0 flex-1">
-          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
             <h1 class="text-2xl font-semibold tracking-tight">LCLS Agentic AI Curriculum</h1>
-            <p class="text-sm text-slate-300">Agentic AI for Science and Operations at LCLS.</p>
+            <p class="text-sm text-curriculum-muted">Agentic AI for Science and Operations at LCLS.</p>
+            <button
+              type="button"
+              id="theme-toggle"
+              class="inline-flex shrink-0 items-center justify-center rounded-lg border border-curriculum-borderlight bg-curriculum-panel p-2 text-curriculum-muted shadow-deck-inset transition hover:bg-curriculum-elevated hover:text-curriculum-ink focus:outline-none focus:ring-2 focus:ring-curriculum-accent"
+              aria-pressed="false"
+              aria-label="Switch to day mode"
+              title="Switch to day mode"
+            >
+              <svg
+                class="theme-icon-night h-4 w-4 shrink-0 text-curriculum-accent-hover"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+              </svg>
+              <svg
+                class="theme-icon-day h-4 w-4 shrink-0 text-curriculum-accent-hover"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="3.25" fill="currentColor" />
+                <g stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                  <line x1="12" y1="2.5" x2="12" y2="6" />
+                  <line x1="12" y1="18" x2="12" y2="21.5" />
+                  <line x1="2.5" y1="12" x2="6" y2="12" />
+                  <line x1="18" y1="12" x2="21.5" y2="12" />
+                  <line x1="5.25" y1="5.25" x2="7.6" y2="7.6" />
+                  <line x1="16.4" y1="16.4" x2="18.75" y2="18.75" />
+                  <line x1="18.75" y1="5.25" x2="16.4" y2="7.6" />
+                  <line x1="7.6" y1="16.4" x2="5.25" y2="18.75" />
+                </g>
+              </svg>
+            </button>
           </div>
         </div>
         <a
@@ -116,23 +316,15 @@
         <button
           id="tab-welcome"
           type="button"
-          class="rounded-lg bg-slate-800 px-4 py-2 text-sm font-medium hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          class="rounded-lg bg-curriculum-elevated px-4 py-2 text-sm font-medium text-curriculum-ink hover:bg-curriculum-hover focus:outline-none focus:ring-2 focus:ring-curriculum-accent"
           aria-current="page"
-        >
-          Welcome
-        </button>
-        <button
-          id="tab-getting-started"
-          type="button"
-          class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
-          aria-current="false"
         >
           Getting Started
         </button>
         <button
           id="tab-ops"
           type="button"
-          class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          class="rounded-lg bg-curriculum-panel px-4 py-2 text-sm font-medium text-curriculum-muted hover:bg-curriculum-hover focus:outline-none focus:ring-2 focus:ring-curriculum-accent"
           aria-current="false"
         >
           Agents for Ops
@@ -143,39 +335,40 @@
           disabled
           aria-disabled="true"
           aria-label="Agents for Science, locked"
-          class="inline-flex cursor-not-allowed items-center rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-slate-600"
+          class="inline-flex cursor-not-allowed items-center rounded-lg bg-curriculum-panel px-4 py-2 text-sm font-medium text-curriculum-faint"
           title="Locked"
         >
           <span>Agents for Science</span>
-          <span class="ml-2 inline-flex items-center rounded-full bg-slate-800 p-1 text-slate-400" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-3.5 w-3.5">
+          <span class="ml-2 inline-flex items-center rounded-full bg-curriculum-elevated p-1 text-curriculum-soft" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
               <path
-                fill-rule="evenodd"
-                d="M8 1a3.5 3.5 0 0 0-3.5 3.5V7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-.5A3.5 3.5 0 0 0 8 1Zm2.5 6V4.5a2 2 0 1 0-5 0V7h5Z"
-                clip-rule="evenodd"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5.5 7V5a2.5 2.5 0 015 0v2"
+              />
+              <rect
+                width="11"
+                height="8"
+                x="2.5"
+                y="7"
+                rx="1.25"
+                stroke="currentColor"
+                stroke-width="1.5"
               />
             </svg>
           </span>
         </button>
       </div>
 
-      <section id="panel-welcome" class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+      <section id="panel-welcome" class="rounded-xl border border-curriculum-border bg-curriculum-panel p-5 shadow-deck-inset">
         <div
           id="welcome-content"
-          class="md min-h-[320px] overflow-auto text-slate-100"
-          aria-label="Welcome content"
-        >
-          Loading welcome page...
-        </div>
-      </section>
-
-      <section id="panel-getting-started" class="hidden rounded-xl border border-slate-800 bg-slate-900 p-5">
-        <div
-          id="getting-started-content"
-          class="md min-h-[320px] overflow-auto text-slate-100"
+          class="md min-h-[320px] overflow-auto text-curriculum-ink"
           aria-label="Getting Started content"
         >
-          Loading getting started page...
+          Loading Getting Started page...
         </div>
       </section>
 
@@ -186,22 +379,22 @@
       >
         <!-- Left: tracks (below main on narrow screens) -->
         <aside
-          class="order-2 rounded-xl border border-slate-800 bg-slate-900 p-3 lg:order-none"
+          class="order-2 rounded-xl border border-curriculum-border bg-curriculum-panel p-3 shadow-deck-inset lg:order-none"
           aria-label="Curriculum tracks"
         >
-          <div class="mb-2 px-2 text-sm font-medium text-slate-200">Explore curriculum</div>
+          <div class="mb-2 px-2 text-sm font-medium text-curriculum-ink">Explore curriculum</div>
 
           <nav class="space-y-2">
             <button
               type="button"
-              class="track-btn w-full rounded-lg border border-sky-500/50 bg-slate-800/80 px-3 py-2 text-left ring-1 ring-sky-500/30 transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              class="track-btn w-full rounded-lg border border-curriculum-accent/50 bg-curriculum-elevated/85 px-3 py-2 text-left ring-1 ring-curriculum-accent/30 transition hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent"
               data-category="basic"
               aria-current="true"
             >
               <div class="flex items-center justify-between gap-2">
-                <span class="text-sm font-medium text-slate-100">Basic</span>
+                <span class="text-sm font-medium text-curriculum-ink">Basic</span>
                 <svg
-                  class="track-chevron h-4 w-4 shrink-0 text-sky-400 transition-opacity"
+                  class="track-chevron h-4 w-4 shrink-0 text-curriculum-accent-hover transition-opacity"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                   aria-hidden="true"
@@ -213,7 +406,7 @@
                   />
                 </svg>
               </div>
-              <p class="mt-2 text-xs leading-snug text-slate-400">
+              <p class="mt-2 text-xs leading-snug text-curriculum-soft">
                 Foundations, terminology, and first agents for ops workflows.
               </p>
             </button>
@@ -224,21 +417,32 @@
               aria-disabled="true"
               aria-label="Advanced User track, locked"
               title="Locked"
-              class="w-full cursor-not-allowed rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-left focus:outline-none"
+              class="w-full cursor-not-allowed rounded-lg border border-curriculum-border bg-curriculum-panel px-3 py-2 text-left focus:outline-none"
             >
               <div class="flex flex-wrap items-center justify-between gap-2">
-                <span class="text-sm font-medium text-slate-500">Advanced User</span>
-                <span class="inline-flex shrink-0 items-center rounded-full bg-slate-800 p-1 text-slate-400" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-3.5 w-3.5">
+                <span class="text-sm font-medium text-curriculum-soft">Advanced User</span>
+                <span class="inline-flex shrink-0 items-center rounded-full bg-curriculum-elevated p-1 text-curriculum-soft" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
                     <path
-                      fill-rule="evenodd"
-                      d="M8 1a3.5 3.5 0 0 0-3.5 3.5V7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-.5A3.5 3.5 0 0 0 8 1Zm2.5 6V4.5a2 2 0 1 0-5 0V7h5Z"
-                      clip-rule="evenodd"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M5.5 7V5a2.5 2.5 0 015 0v2"
+                    />
+                    <rect
+                      width="11"
+                      height="8"
+                      x="2.5"
+                      y="7"
+                      rx="1.25"
+                      stroke="currentColor"
+                      stroke-width="1.5"
                     />
                   </svg>
                 </span>
               </div>
-              <p class="mt-2 text-xs leading-snug text-slate-600">
+              <p class="mt-2 text-xs leading-snug text-curriculum-faint">
                 Prompting discipline, evaluation mindset, and agent reliability patterns.
               </p>
             </button>
@@ -249,21 +453,32 @@
               aria-disabled="true"
               aria-label="Builder track, locked"
               title="Locked"
-              class="w-full cursor-not-allowed rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-left focus:outline-none"
+              class="w-full cursor-not-allowed rounded-lg border border-curriculum-border bg-curriculum-panel px-3 py-2 text-left focus:outline-none"
             >
               <div class="flex flex-wrap items-center justify-between gap-2">
-                <span class="text-sm font-medium text-slate-500">Builder</span>
-                <span class="inline-flex shrink-0 items-center rounded-full bg-slate-800 p-1 text-slate-400" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-3.5 w-3.5">
+                <span class="text-sm font-medium text-curriculum-soft">Builder</span>
+                <span class="inline-flex shrink-0 items-center rounded-full bg-curriculum-elevated p-1 text-curriculum-soft" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
                     <path
-                      fill-rule="evenodd"
-                      d="M8 1a3.5 3.5 0 0 0-3.5 3.5V7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-.5A3.5 3.5 0 0 0 8 1Zm2.5 6V4.5a2 2 0 1 0-5 0V7h5Z"
-                      clip-rule="evenodd"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M5.5 7V5a2.5 2.5 0 015 0v2"
+                    />
+                    <rect
+                      width="11"
+                      height="8"
+                      x="2.5"
+                      y="7"
+                      rx="1.25"
+                      stroke="currentColor"
+                      stroke-width="1.5"
                     />
                   </svg>
                 </span>
               </div>
-              <p class="mt-2 text-xs leading-snug text-slate-600">
+              <p class="mt-2 text-xs leading-snug text-curriculum-faint">
                 Build tool-using pipelines, structured workflows, and reusable agent components.
               </p>
             </button>
@@ -274,34 +489,45 @@
               aria-disabled="true"
               aria-label="Coder track, locked"
               title="Locked"
-              class="w-full cursor-not-allowed rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-left focus:outline-none"
+              class="w-full cursor-not-allowed rounded-lg border border-curriculum-border bg-curriculum-panel px-3 py-2 text-left focus:outline-none"
             >
               <div class="flex flex-wrap items-center justify-between gap-2">
-                <span class="text-sm font-medium text-slate-500">Coder</span>
-                <span class="inline-flex shrink-0 items-center rounded-full bg-slate-800 p-1 text-slate-400" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-3.5 w-3.5">
+                <span class="text-sm font-medium text-curriculum-soft">Coder</span>
+                <span class="inline-flex shrink-0 items-center rounded-full bg-curriculum-elevated p-1 text-curriculum-soft" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
                     <path
-                      fill-rule="evenodd"
-                      d="M8 1a3.5 3.5 0 0 0-3.5 3.5V7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-.5A3.5 3.5 0 0 0 8 1Zm2.5 6V4.5a2 2 0 1 0-5 0V7h5Z"
-                      clip-rule="evenodd"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M5.5 7V5a2.5 2.5 0 015 0v2"
+                    />
+                    <rect
+                      width="11"
+                      height="8"
+                      x="2.5"
+                      y="7"
+                      rx="1.25"
+                      stroke="currentColor"
+                      stroke-width="1.5"
                     />
                   </svg>
                 </span>
               </div>
-              <p class="mt-2 text-xs leading-snug text-slate-600">
+              <p class="mt-2 text-xs leading-snug text-curriculum-faint">
                 Implement and debug agent loops, tool integrations, and safety checks.
               </p>
             </button>
 
             <button
               type="button"
-              class="w-full rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-left transition hover:bg-amber-500/15 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              class="w-full rounded-lg border border-curriculum-warm/45 bg-curriculum-warm/12 px-3 py-2 text-left transition hover:bg-curriculum-warm/18 focus:outline-none focus:ring-2 focus:ring-curriculum-warm"
               data-glossary-link="basic"
             >
               <div class="flex items-center justify-between gap-2">
-                <span class="text-sm font-medium text-amber-100">Glossary</span>
+                <span class="text-sm font-medium text-curriculum-parchment">Glossary</span>
               </div>
-              <p class="mt-2 text-xs leading-snug text-amber-200/80">
+              <p class="mt-2 text-xs leading-snug text-curriculum-muted">
                 Central definitions across core and supporting agentic AI concepts.
               </p>
             </button>
@@ -309,13 +535,13 @@
         </aside>
 
         <!-- Center: article (first on narrow screens) -->
-        <main class="order-1 min-w-0 rounded-xl border border-slate-800 bg-slate-900 p-4 lg:order-none">
-          <div id="ops-intro-card" class="relative mb-4 rounded-lg border border-slate-800 bg-slate-950/30 p-4">
+        <main class="order-1 min-w-0 rounded-xl border border-curriculum-border bg-curriculum-panel p-4 shadow-deck-inset lg:order-none">
+          <div id="ops-intro-card" class="relative mb-4 rounded-lg border border-curriculum-border bg-curriculum-panel/40 p-4">
             <div class="flex items-start justify-between gap-3">
-              <div class="text-sm font-semibold text-slate-100">Agents for Ops</div>
+              <div class="text-sm font-semibold text-curriculum-ink">Agents for Ops</div>
               <details id="nav-tips-details" class="relative z-20 shrink-0">
                 <summary
-                  class="flex h-8 w-8 cursor-pointer list-none items-center justify-center rounded-full border border-slate-600 bg-slate-900/80 text-slate-300 hover:border-slate-500 hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-500 [&::-webkit-details-marker]:hidden"
+                  class="flex h-8 w-8 cursor-pointer list-none items-center justify-center rounded-full border border-curriculum-borderlight bg-curriculum-panel/80 text-curriculum-muted hover:border-curriculum-muted hover:text-curriculum-ink focus:outline-none focus:ring-2 focus:ring-curriculum-accent [&::-webkit-details-marker]:hidden"
                   title="Navigation tips (click to show)"
                   aria-label="Show navigation tips"
                 >
@@ -334,27 +560,27 @@
                   </svg>
                 </summary>
                 <div
-                  class="absolute right-0 top-full z-30 mt-2 w-[min(22rem,calc(100vw-2.5rem))] rounded-lg border border-slate-700 bg-slate-900 p-3 text-xs leading-relaxed text-slate-400 shadow-xl"
+                  class="absolute right-0 top-full z-30 mt-2 w-[min(22rem,calc(100vw-2.5rem))] rounded-lg border border-curriculum-borderlight bg-curriculum-panel p-3 text-xs leading-relaxed text-curriculum-soft shadow-xl"
                   role="region"
                   aria-label="Navigation tips"
                 >
                   <p class="lg:hidden">
-                    Use <strong class="text-slate-300">Jump to track</strong> and
-                    <strong class="text-slate-300">Jump to page</strong> below, or scroll for the full
-                    <strong class="text-slate-300">track</strong> buttons and compact
-                    <strong class="text-slate-300">outline</strong>.
+                    Use <strong class="text-curriculum-muted">Jump to track</strong> and
+                    <strong class="text-curriculum-muted">Jump to page</strong> below, or scroll for the full
+                    <strong class="text-curriculum-muted">track</strong> buttons and compact
+                    <strong class="text-curriculum-muted">outline</strong>.
                   </p>
                   <p class="hidden lg:block">
-                    Choose a track on the <strong class="text-slate-300">left</strong>; jump between pages in the
-                    <strong class="text-slate-300">outline on the right</strong>.
+                    Choose a track on the <strong class="text-curriculum-muted">left</strong>; jump between pages in the
+                    <strong class="text-curriculum-muted">outline on the right</strong>.
                   </p>
                   <p class="mt-2">
-                    Use <strong class="text-slate-300">Next</strong> / <strong class="text-slate-300">Previous</strong> or the outline.
+                    Use <strong class="text-curriculum-muted">Next</strong> / <strong class="text-curriculum-muted">Previous</strong> or the outline.
                   </p>
                 </div>
               </details>
             </div>
-            <p class="mt-1 text-sm text-slate-300">
+            <p class="mt-1 text-sm text-curriculum-muted">
               Explore how agentic systems can support real operations workflows: from foundations
               through reliability, tooling, and implementation.
             </p>
@@ -362,20 +588,20 @@
 
           <div id="mobile-jump-controls" class="mb-3 space-y-3 lg:hidden">
             <div id="mobile-track-wrap" class="hidden">
-              <label for="mobile-track-select" class="mb-1 block text-xs font-medium text-slate-400"
+              <label for="mobile-track-select" class="mb-1 block text-xs font-medium text-curriculum-soft"
                 >Jump to track</label>
               <select
                 id="mobile-track-select"
-                class="w-full rounded-lg border border-slate-700 bg-slate-950/60 py-2.5 pl-3 pr-3 text-sm text-slate-100 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                class="w-full rounded-lg border border-curriculum-borderlight bg-curriculum-panel/70 py-2.5 pl-3 pr-3 text-sm text-curriculum-ink shadow-sm focus:border-curriculum-accent focus:outline-none focus:ring-2 focus:ring-curriculum-accent"
                 autocomplete="off"
               ></select>
             </div>
             <div id="mobile-jump-wrap">
-              <label for="mobile-jump-select" class="mb-1 block text-xs font-medium text-slate-400"
+              <label for="mobile-jump-select" class="mb-1 block text-xs font-medium text-curriculum-soft"
                 >Jump to page</label>
               <select
                 id="mobile-jump-select"
-                class="w-full rounded-lg border border-slate-700 bg-slate-950/60 py-2.5 pl-3 pr-3 text-sm text-slate-100 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                class="w-full rounded-lg border border-curriculum-borderlight bg-curriculum-panel/70 py-2.5 pl-3 pr-3 text-sm text-curriculum-ink shadow-sm focus:border-curriculum-accent focus:outline-none focus:ring-2 focus:ring-curriculum-accent"
                 autocomplete="off"
               ></select>
             </div>
@@ -383,46 +609,46 @@
 
           <div
             id="ops-toolbar"
-            class="mb-3 flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3"
+            class="mb-3 flex flex-wrap items-center justify-between gap-2 border-b border-curriculum-border pb-3"
           >
-            <div id="ops-page-title" class="min-w-0 flex-1 text-sm font-medium text-slate-200">
+            <div id="ops-page-title" class="min-w-0 flex-1 text-sm font-medium text-curriculum-ink">
               Loading…
             </div>
             <div class="flex shrink-0 gap-2">
               <button
                 type="button"
                 id="ops-prev"
-                class="rounded-lg border border-slate-700 bg-slate-950/40 px-3 py-1.5 text-xs font-medium text-slate-200 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 disabled:cursor-not-allowed disabled:opacity-40"
+                class="rounded-lg border border-curriculum-borderlight bg-curriculum-panel/50 px-3 py-1.5 text-xs font-medium text-curriculum-ink hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Previous
               </button>
               <button
                 type="button"
                 id="ops-next"
-                class="rounded-lg border border-slate-700 bg-slate-950/40 px-3 py-1.5 text-xs font-medium text-slate-200 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 disabled:cursor-not-allowed disabled:opacity-40"
+                class="rounded-lg border border-curriculum-borderlight bg-curriculum-panel/50 px-3 py-1.5 text-xs font-medium text-curriculum-ink hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Next
               </button>
             </div>
           </div>
 
-          <div id="ops-content" class="md min-h-[320px] overflow-auto text-slate-100">
+          <div id="ops-content" class="md min-h-[320px] overflow-auto text-curriculum-ink">
             Loading curriculum...
           </div>
         </main>
 
         <!-- Right: page outline (compact on narrow screens) -->
         <aside
-          class="order-3 rounded-xl border border-slate-800 bg-slate-900 p-2 lg:order-none lg:p-3 lg:sticky lg:top-6 lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto"
+          class="order-3 rounded-xl border border-curriculum-border bg-curriculum-panel p-2 shadow-deck-inset lg:order-none lg:p-3 lg:sticky lg:top-6 lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto"
           aria-label="Page outline"
         >
           <div class="mb-1.5 flex items-center justify-between gap-2 px-0.5 lg:mb-2 lg:px-1">
-            <span id="outline-heading" class="text-[11px] font-medium leading-tight text-slate-400 lg:text-xs"
+            <span id="outline-heading" class="text-[11px] font-medium leading-tight text-curriculum-soft lg:text-xs"
               >Pages · Basic</span>
             <button
               type="button"
               id="outline-toggle"
-              class="hidden shrink-0 rounded px-1.5 py-0.5 text-[10px] text-sky-400 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 lg:px-2 lg:py-1 lg:text-xs"
+              class="hidden shrink-0 rounded px-1.5 py-0.5 text-[10px] text-curriculum-accent-hover hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent lg:px-2 lg:py-1 lg:text-xs"
               aria-pressed="false"
               aria-controls="outline-root"
             >
@@ -431,7 +657,7 @@
           </div>
           <div
             id="outline-root"
-            class="max-h-36 overflow-y-auto rounded-md border border-slate-800/80 bg-slate-950/40 p-1.5 text-[11px] leading-snug lg:max-h-[min(24rem,calc(100vh-12rem))] lg:rounded-lg lg:p-2 lg:text-sm lg:leading-normal"
+            class="max-h-36 overflow-y-auto rounded-md border border-curriculum-border/90 bg-curriculum-panel/50 p-1.5 text-[11px] leading-snug lg:max-h-[min(24rem,calc(100vh-12rem))] lg:rounded-lg lg:p-2 lg:text-sm lg:leading-normal"
             role="navigation"
             aria-label="Pages in this track"
           ></div>
@@ -439,7 +665,7 @@
       </section>
 
       <footer
-        class="mt-10 border-t border-slate-800 pt-6 text-center text-xs leading-relaxed text-slate-500"
+        class="mt-10 border-t border-curriculum-border pt-6 text-center text-xs leading-relaxed text-curriculum-soft"
         aria-label="Site"
       >
         <p class="flex flex-wrap items-center justify-center gap-1.5">
@@ -451,7 +677,7 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="h-3.5 w-3.5 shrink-0 text-slate-400"
+            class="h-3.5 w-3.5 shrink-0 text-curriculum-soft"
             aria-hidden="true"
           >
             <circle cx="12" cy="12" r="10" />
@@ -488,15 +714,32 @@
         criticism: "Criticism and Defense",
       };
 
+      function sectionHeadingLabel(trackId, sectionKey) {
+        if (trackId === "basic" && sectionKey === "concepts") return "Introduction";
+        return SECTION_LABEL[sectionKey] || sectionKey;
+      }
+
       const CURRICULUM = {
         basic: {
           label: "Basic",
           blurb: "Foundations, terminology, and first agents for ops workflows.",
           pages: [
             {
-              id: "concepts",
-              title: "Concepts and Take-aways",
-              path: "content/ops/basic/concepts.md",
+              id: "session-1",
+              title: "Session 1 Recording",
+              path: "content/ops/basic/session-1.md",
+              section: "concepts",
+            },
+            {
+              id: "introduction/prompt-cost",
+              title: "Prompt cost",
+              path: "content/ops/basic/introduction/prompt-cost.md",
+              section: "concepts",
+            },
+            {
+              id: "introduction/agent-brakes",
+              title: "Agent brakes",
+              path: "content/ops/basic/introduction/agent-brakes.md",
               section: "concepts",
             },
             {
@@ -661,16 +904,13 @@
 
       const CONTENT_EL = document.getElementById("ops-content");
       const WELCOME_CONTENT_EL = document.getElementById("welcome-content");
-      const GETTING_STARTED_CONTENT_EL = document.getElementById("getting-started-content");
       const PAGE_TITLE_EL = document.getElementById("ops-page-title");
       const BTN_PREV = document.getElementById("ops-prev");
       const BTN_NEXT = document.getElementById("ops-next");
       const TAB_WELCOME = document.getElementById("tab-welcome");
-      const TAB_GETTING_STARTED = document.getElementById("tab-getting-started");
       const TAB_OPS = document.getElementById("tab-ops");
       const TAB_SCIENCE = document.getElementById("tab-science");
       const PANEL_WELCOME = document.getElementById("panel-welcome");
-      const PANEL_GETTING_STARTED = document.getElementById("panel-getting-started");
       const PANEL_OPS = document.getElementById("panel-ops");
       const OPS_INTRO_CARD = document.getElementById("ops-intro-card");
       const MOBILE_JUMP_CONTROLS = document.getElementById("mobile-jump-controls");
@@ -683,11 +923,9 @@
       const MOBILE_JUMP_SELECT = document.getElementById("mobile-jump-select");
       const SITE_LAST_UPDATED = document.getElementById("site-last-updated");
       const WELCOME_PATH = "content/welcome.md";
-      const GETTING_STARTED_PATH = "content/getting-started.md";
 
       let lastLoadedHash = "";
       let lastLoadedWelcome = false;
-      let lastLoadedGettingStarted = false;
       /** false = outline lists only the selected track; true = all tracks */
       let outlineAllTracks = false;
 
@@ -705,12 +943,17 @@
           .replace(/"/g, "&quot;");
       }
 
-      function lockIconSvg(extraClass = "h-3 w-3 shrink-0 text-slate-500") {
-        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="${extraClass}" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a3.5 3.5 0 0 0-3.5 3.5V7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-.5A3.5 3.5 0 0 0 8 1Zm2.5 6V4.5a2 2 0 1 0-5 0V7h5Z" clip-rule="evenodd" /></svg>`;
+      function lockIconSvg(extraClass = "h-3 w-3 shrink-0 text-curriculum-soft") {
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="${extraClass}" aria-hidden="true"><path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M5.5 7V5a2.5 2.5 0 015 0v2"/><rect width="11" height="8" x="2.5" y="7" rx="1.25" stroke="currentColor" stroke-width="1.5"/></svg>`;
       }
 
       function isBasicLockedPageId(pageId) {
-        return pageId !== "concepts" && pageId !== "glossary";
+        return (
+          pageId !== "session-1" &&
+          pageId !== "glossary" &&
+          pageId !== "introduction/prompt-cost" &&
+          pageId !== "introduction/agent-brakes"
+        );
       }
 
       function isPageAccessible(trackId, pageId) {
@@ -721,7 +964,6 @@
       function parseHash() {
         const raw = window.location.hash.replace(/^#/, "").trim();
         if (raw === "welcome") return { mode: "welcome" };
-        if (raw === "getting-started") return { mode: "getting-started" };
         if (!raw) return null;
         const parts = raw.split("/").filter(Boolean);
         if (parts.length < 2) return null;
@@ -757,9 +999,9 @@
 
       function setLoading(message) {
         CONTENT_EL.innerHTML = `
-          <div class="rounded-lg border border-slate-800 bg-slate-950/40 p-4">
+          <div class="rounded-lg border border-curriculum-border bg-curriculum-panel/50 p-4">
             <div class="text-sm font-medium">${escapeHtml(message)}</div>
-            <div class="mt-2 text-xs text-slate-400">Please wait...</div>
+            <div class="mt-2 text-xs text-curriculum-soft">Please wait...</div>
           </div>
         `;
       }
@@ -772,9 +1014,48 @@
         return await res.text();
       }
 
+      function isAllowedIframeSrc(src) {
+        const v = String(src || "").trim();
+        if (/^https:\/\/docs\.google\.com\/presentation\//i.test(v)) return true;
+        if (/^https:\/\/calendar\.google\.com\/calendar\/embed/i.test(v)) return true;
+        if (/^https:\/\/outlook\.office365\.com\/owa\/calendar\//i.test(v)) return true;
+        if (/^https:\/\/outlook\.live\.com\/owa\/calendar\//i.test(v)) return true;
+        return false;
+      }
+
+      function restrictIframeSrcHook(node, data) {
+        if (node && node.nodeName === "IFRAME" && data.attrName === "src") {
+          if (!isAllowedIframeSrc(data.attrValue)) {
+            data.keepAttr = false;
+          }
+        }
+      }
+
+      function sanitizeMarkdownHtml(dirtyHtml) {
+        DOMPurify.addHook("uponSanitizeAttribute", restrictIframeSrcHook);
+        try {
+          return DOMPurify.sanitize(dirtyHtml, {
+            USE_PROFILES: { html: true },
+            ADD_TAGS: ["iframe"],
+            ADD_ATTR: [
+              "allowfullscreen",
+              "mozallowfullscreen",
+              "webkitallowfullscreen",
+              "frameborder",
+              "width",
+              "height",
+              "title",
+              "loading",
+            ],
+          });
+        } finally {
+          DOMPurify.removeHook("uponSanitizeAttribute");
+        }
+      }
+
       function renderMarkdown(markdownText) {
         const dirtyHtml = marked.parse(markdownText);
-        const cleanHtml = DOMPurify.sanitize(dirtyHtml, { USE_PROFILES: { html: true } });
+        const cleanHtml = sanitizeMarkdownHtml(dirtyHtml);
         CONTENT_EL.innerHTML = cleanHtml;
         if (window.Prism && typeof window.Prism.highlightAllUnder === "function") {
           window.Prism.highlightAllUnder(CONTENT_EL);
@@ -786,12 +1067,12 @@
         document.querySelectorAll(".track-btn").forEach((btn) => {
           const active = btn === trackBtn;
           btn.setAttribute("aria-current", active ? "true" : "false");
-          btn.classList.toggle("border-sky-500/50", active);
-          btn.classList.toggle("bg-slate-800/80", active);
+          btn.classList.toggle("border-curriculum-accent/50", active);
+          btn.classList.toggle("bg-curriculum-elevated/85", active);
           btn.classList.toggle("ring-1", active);
-          btn.classList.toggle("ring-sky-500/30", active);
+          btn.classList.toggle("ring-curriculum-accent/30", active);
           btn.classList.toggle("border-transparent", !active);
-          btn.classList.toggle("bg-slate-950/30", !active);
+          btn.classList.toggle("bg-curriculum-panel/40", !active);
         });
       }
 
@@ -804,9 +1085,9 @@
           } else {
             a.removeAttribute("aria-current");
           }
-          a.classList.toggle("bg-slate-800", on);
-          a.classList.toggle("text-slate-100", on);
-          a.classList.toggle("text-slate-300", !on);
+          a.classList.toggle("bg-curriculum-elevated", on);
+          a.classList.toggle("text-curriculum-ink", on);
+          a.classList.toggle("text-curriculum-muted", !on);
         });
       }
 
@@ -835,22 +1116,22 @@
         for (const trackId of tracksToRender) {
           const t = CURRICULUM[trackId];
           if (!t) continue;
-          html += `<div class="mb-2 border-t border-slate-800 pt-2 first:mt-0 first:border-t-0 first:pt-0 lg:mb-3">`;
+          html += `<div class="mb-2 border-t border-curriculum-border pt-2 first:mt-0 first:border-t-0 first:pt-0 lg:mb-3">`;
           if (outlineAllTracks) {
-            html += `<div class="px-1 text-[10px] font-semibold uppercase tracking-wide text-slate-500 lg:text-xs">${escapeHtml(t.label)}</div>`;
+            html += `<div class="px-1 text-[10px] font-semibold uppercase tracking-wide text-curriculum-soft lg:text-xs">${escapeHtml(t.label)}</div>`;
           }
           for (const sec of sectionOrder) {
             const inSection = t.pages.filter((p) => p.section === sec && p.id !== "glossary");
             if (!inSection.length) continue;
-            html += `<div class="mt-1 px-1 text-[9px] font-medium uppercase leading-tight text-slate-600 lg:mt-1.5 lg:text-[10px]">${escapeHtml(SECTION_LABEL[sec])}</div>`;
+            html += `<div class="mt-1 px-1 text-[9px] font-medium uppercase leading-tight text-curriculum-faint lg:mt-1.5 lg:text-[10px]">${escapeHtml(sectionHeadingLabel(trackId, sec))}</div>`;
             html += `<ul class="mt-0.5 space-y-0">`;
             for (const p of inSection) {
               const locked = trackId === "basic" && isBasicLockedPageId(p.id);
               if (locked) {
-                html += `<li><span class="flex items-center gap-1 rounded px-1 py-0.5 text-[11px] leading-snug text-slate-500 lg:px-1.5 lg:text-xs lg:leading-normal" title="Locked">${lockIconSvg()}<span>${escapeHtml(p.title)}</span></span></li>`;
+                html += `<li><span class="flex items-center gap-1 rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-soft lg:px-1.5 lg:text-xs lg:leading-normal" title="Locked">${lockIconSvg()}<span>${escapeHtml(p.title)}</span></span></li>`;
               } else {
                 const href = hashFor(trackId, p.id);
-                html += `<li><a href="${href}" class="outline-link block rounded px-1 py-0.5 text-[11px] leading-snug text-slate-300 hover:bg-slate-800 hover:text-slate-100 lg:px-1.5 lg:text-xs lg:leading-normal">${escapeHtml(p.title)}</a></li>`;
+                html += `<li><a href="${href}" class="outline-link block rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-muted hover:bg-curriculum-elevated hover:text-curriculum-ink lg:px-1.5 lg:text-xs lg:leading-normal">${escapeHtml(p.title)}</a></li>`;
               }
             }
             html += `</ul>`;
@@ -920,17 +1201,17 @@
         let html = "";
         sections.forEach((section) => {
           if (!section.terms.length) return;
-          html += `<div class="mb-2 rounded-md border border-slate-800/80 bg-slate-950/40 p-2 lg:mb-3 lg:rounded-lg">`;
-          html += `<div class="px-1 text-[10px] font-semibold uppercase tracking-wide text-slate-500 lg:text-xs">${escapeHtml(section.title)}</div>`;
+          html += `<div class="mb-2 rounded-md border border-curriculum-border/90 bg-curriculum-panel/50 p-2 lg:mb-3 lg:rounded-lg">`;
+          html += `<div class="px-1 text-[10px] font-semibold uppercase tracking-wide text-curriculum-soft lg:text-xs">${escapeHtml(section.title)}</div>`;
           html += `<ul class="mt-1 space-y-0">`;
           section.terms.forEach((term) => {
-            html += `<li><a href="#${term.id}" class="glossary-link block rounded px-1 py-0.5 text-[11px] leading-snug text-slate-300 hover:bg-slate-800 hover:text-slate-100 lg:px-1.5 lg:text-xs lg:leading-normal">${escapeHtml(term.title)}</a></li>`;
+            html += `<li><a href="#${term.id}" class="glossary-link block rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-muted hover:bg-curriculum-elevated hover:text-curriculum-ink lg:px-1.5 lg:text-xs lg:leading-normal">${escapeHtml(term.title)}</a></li>`;
           });
           html += `</ul></div>`;
         });
 
         OUTLINE_ROOT.innerHTML =
-          html || `<div class="px-1 py-1 text-xs text-slate-500">No terms found.</div>`;
+          html || `<div class="px-1 py-1 text-xs text-curriculum-soft">No terms found.</div>`;
 
         OUTLINE_ROOT.querySelectorAll("a.glossary-link").forEach((a) => {
           a.addEventListener("click", (e) => {
@@ -946,25 +1227,22 @@
 
       function setTopTab(active) {
         const isWelcome = active === "welcome";
-        const isGettingStarted = active === "getting-started";
         const isOps = active === "ops";
         [
           [TAB_WELCOME, isWelcome],
-          [TAB_GETTING_STARTED, isGettingStarted],
           [TAB_OPS, isOps],
         ].forEach(([tab, isActive]) => {
           tab?.setAttribute("aria-current", isActive ? "page" : "false");
-          tab?.classList.toggle("bg-slate-800", isActive);
-          tab?.classList.toggle("text-slate-100", isActive);
+          tab?.classList.toggle("bg-curriculum-elevated", isActive);
+          tab?.classList.toggle("text-curriculum-ink", isActive);
           tab?.classList.toggle("ring-1", isActive);
-          tab?.classList.toggle("ring-sky-500/40", isActive);
-          tab?.classList.toggle("bg-slate-900", !isActive);
-          tab?.classList.toggle("text-slate-300", !isActive);
+          tab?.classList.toggle("ring-curriculum-accent/40", isActive);
+          tab?.classList.toggle("bg-curriculum-panel", !isActive);
+          tab?.classList.toggle("text-curriculum-muted", !isActive);
         });
-        TAB_SCIENCE?.classList.add("bg-slate-900", "text-slate-600");
-        TAB_SCIENCE?.classList.remove("bg-slate-800", "text-slate-100", "ring-1", "ring-sky-500/40");
+        TAB_SCIENCE?.classList.add("bg-curriculum-panel", "text-curriculum-faint");
+        TAB_SCIENCE?.classList.remove("bg-curriculum-elevated", "text-curriculum-ink", "ring-1", "ring-curriculum-accent/40");
         PANEL_WELCOME?.classList.toggle("hidden", !isWelcome);
-        PANEL_GETTING_STARTED?.classList.toggle("hidden", !isGettingStarted);
         PANEL_OPS?.classList.toggle("hidden", !isOps);
       }
 
@@ -1072,43 +1350,19 @@
           setTopTab("welcome");
           if (lastLoadedWelcome) return;
           lastLoadedWelcome = true;
-          lastLoadedGettingStarted = false;
           lastLoadedHash = "";
           if (WELCOME_CONTENT_EL) {
-            WELCOME_CONTENT_EL.innerHTML = "Loading welcome page...";
+            WELCOME_CONTENT_EL.innerHTML = "Loading Getting Started page...";
             try {
               const mdText = await loadMarkdown(WELCOME_PATH);
               const dirtyHtml = marked.parse(mdText);
-              const cleanHtml = DOMPurify.sanitize(dirtyHtml, { USE_PROFILES: { html: true } });
+              const cleanHtml = sanitizeMarkdownHtml(dirtyHtml);
               WELCOME_CONTENT_EL.innerHTML = cleanHtml;
               if (window.Prism && typeof window.Prism.highlightAllUnder === "function") {
                 window.Prism.highlightAllUnder(WELCOME_CONTENT_EL);
               }
             } catch (err) {
-              WELCOME_CONTENT_EL.innerHTML = `<div class="rounded-lg border border-red-900/50 bg-red-950/30 p-4"><div class="text-sm font-medium text-red-200">Could not load welcome page.</div><div class="mt-2 text-xs break-words text-red-300">${escapeHtml(String(err.message || err))}</div></div>`;
-            }
-          }
-          return;
-        }
-
-        if (parsed?.mode === "getting-started") {
-          setTopTab("getting-started");
-          if (lastLoadedGettingStarted) return;
-          lastLoadedGettingStarted = true;
-          lastLoadedWelcome = false;
-          lastLoadedHash = "";
-          if (GETTING_STARTED_CONTENT_EL) {
-            GETTING_STARTED_CONTENT_EL.innerHTML = "Loading getting started page...";
-            try {
-              const mdText = await loadMarkdown(GETTING_STARTED_PATH);
-              const dirtyHtml = marked.parse(mdText);
-              const cleanHtml = DOMPurify.sanitize(dirtyHtml, { USE_PROFILES: { html: true } });
-              GETTING_STARTED_CONTENT_EL.innerHTML = cleanHtml;
-              if (window.Prism && typeof window.Prism.highlightAllUnder === "function") {
-                window.Prism.highlightAllUnder(GETTING_STARTED_CONTENT_EL);
-              }
-            } catch (err) {
-              GETTING_STARTED_CONTENT_EL.innerHTML = `<div class="rounded-lg border border-red-900/50 bg-red-950/30 p-4"><div class="text-sm font-medium text-red-200">Could not load getting started page.</div><div class="mt-2 text-xs break-words text-red-300">${escapeHtml(String(err.message || err))}</div></div>`;
+              WELCOME_CONTENT_EL.innerHTML = `<div class="rounded-lg border border-red-900/50 bg-red-950/30 p-4"><div class="text-sm font-medium text-red-200">Could not load Getting Started page.</div><div class="mt-2 text-xs break-words text-red-300">${escapeHtml(String(err.message || err))}</div></div>`;
             }
           }
           return;
@@ -1116,23 +1370,22 @@
 
         setTopTab("ops");
         lastLoadedWelcome = false;
-        lastLoadedGettingStarted = false;
         const valid =
           parsed &&
           parsed.mode === "ops" &&
           isTrackAvailable(parsed.track) &&
           findPage(parsed.track, parsed.pageId);
         if (!valid) {
-          history.replaceState(null, "", hashFor("basic", "concepts"));
-          parsed = { mode: "ops", track: "basic", pageId: "concepts" };
+          history.replaceState(null, "", hashFor("basic", "session-1"));
+          parsed = { mode: "ops", track: "basic", pageId: "session-1" };
         }
 
         let { track, pageId } = parsed;
         if (track === "basic" && isBasicLockedPageId(pageId)) {
-          history.replaceState(null, "", hashFor("basic", "concepts"));
-          parsed = { mode: "ops", track: "basic", pageId: "concepts" };
+          history.replaceState(null, "", hashFor("basic", "session-1"));
+          parsed = { mode: "ops", track: "basic", pageId: "session-1" };
           track = "basic";
-          pageId = "concepts";
+          pageId = "session-1";
         }
 
         const page = findPage(track, pageId);
@@ -1237,17 +1490,10 @@
             loadPageForHash();
           }
         });
-        TAB_GETTING_STARTED?.addEventListener("click", () => {
-          if (location.hash !== "#getting-started") {
-            location.hash = "#getting-started";
-          } else {
-            loadPageForHash();
-          }
-        });
         TAB_OPS?.addEventListener("click", () => {
           const parsed = parseHash();
           const isOps = parsed?.mode === "ops";
-          const next = isOps ? hashFor(parsed.track, parsed.pageId) : hashFor("basic", "concepts");
+          const next = isOps ? hashFor(parsed.track, parsed.pageId) : hashFor("basic", "session-1");
           if (location.hash !== next) {
             location.hash = next;
           } else {
@@ -1321,10 +1567,42 @@
         });
       }
 
+      const THEME_STORAGE_KEY = "lcls-theme";
+
+      function applyTheme(next) {
+        const t = next === "day" ? "day" : "night";
+        document.documentElement.setAttribute("data-theme", t);
+        try {
+          localStorage.setItem(THEME_STORAGE_KEY, t);
+        } catch (_) {}
+        syncThemeToggleUi();
+      }
+
+      function syncThemeToggleUi() {
+        const mode = document.documentElement.getAttribute("data-theme") === "day" ? "day" : "night";
+        const isDay = mode === "day";
+        const btn = document.getElementById("theme-toggle");
+        if (!btn) return;
+        btn.setAttribute("aria-pressed", isDay ? "true" : "false");
+        btn.setAttribute("aria-label", isDay ? "Switch to night mode" : "Switch to day mode");
+        btn.setAttribute("title", isDay ? "Switch to night mode" : "Switch to day mode");
+      }
+
+      function wireThemeToggle() {
+        const btn = document.getElementById("theme-toggle");
+        if (!btn) return;
+        syncThemeToggleUi();
+        btn.addEventListener("click", () => {
+          const isDay = document.documentElement.getAttribute("data-theme") === "day";
+          applyTheme(isDay ? "night" : "day");
+        });
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
         setTopTab("welcome");
         updateTrackAvailabilityUi();
         updateLastUpdatedFooter();
+        wireThemeToggle();
         wireTopTabs();
         wireOutlineToggle();
         wireTrackButtons();

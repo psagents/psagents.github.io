@@ -1,19 +1,27 @@
 # Welcome
 
-This site shares practical guidance for building and using agentic AI at LCLS.
+This site shares practical guidance for building and using agentic AI at LCLS. It is meant to help teams apply agentic AI to real science and operations workflows, capture what works in production rather than only demos, and share reusable patterns for tooling, safety, and evaluation. You will find **curriculum tracks** for different experience levels (starting with Agents for Ops), **examples** across concepts, practice exercises, and production patterns, and a **shared glossary** so terminology stays consistent across tracks. Treat this page as a light front door for news and updates on agentic AI work at LCLS, then use the curriculum tabs for depth.
 
-## Purpose
+## Useful Resources
 
-- Help teams apply agentic AI to real science and operations workflows.
-- Capture what works in production, not just demos.
-- Share reusable patterns for tooling, safety, and evaluation.
+<ul class="useful-resources">
+<li><a href="https://it.slac.stanford.edu/about/slac-ai-capabilities">SLAC AI Capabilities (SLAC IT)</a> <small>Main hub — AI for Productivity, SLAC AI Accelerator, AI for Developers</small></li>
+<li><a href="https://uit.stanford.edu/ai/genai-tool-matrix">Stanford GenAI Tool Evaluation Matrix</a> <small>UIT — which tools are in evaluation / approved for Stanford use</small></li>
+<li><a href="https://uit.stanford.edu/service/aiplayground">Stanford AI Playground</a> <small>UIT — try approved models in one place (SUNet)</small></li>
+<li><a href="https://uit.stanford.edu/service/ai-api-gateway">Stanford AI API Gateway</a> <small>UIT — API access to Playground models for apps</small></li>
+<li><a href="https://uit.stanford.edu/security/responsibleai">Responsible AI at Stanford</a> <small>UIT — institution-wide principles and links</small></li>
+<li><a href="https://intranet.slac.stanford.edu/news/2025-01-14-guidance-responsible-ai-use?check_logged_in=1">Guidance for Responsible AI at SLAC</a> <small>SLAC intranet — SUNet login</small></li>
+<li><a href="https://slacprod.servicenowservices.com/it_services?sys_kb_id=b3764bb61b77d0501c3262cfe54bcb83&amp;id=kb_article_view">SLAC Banned Hardware &amp; Software list</a> <small>ServiceNow KB — SLAC login</small></li>
+<li><a href="https://uit.stanford.edu/sensitivedata">Stanford Data Risk Classifications</a> <small>UIT — sensitive data handling and classifications</small></li>
+<li><a href="https://slacprod.servicenowservices.com/it_services?id=sc_cat_item&amp;sys_id=515f28711b607110c5d320eae54bcb64&amp;sysparm_category=d65827c46fd921009c4235af1e3ee434">Request AI support / consultation (SLAC)</a> <small>ServiceNow — SLAC login</small></li>
+</ul>
 
-## What you will find here
+## Events
 
-- **Curriculum tracks** for different experience levels, starting with Agents for Ops.
-- **Examples** spanning concepts, practice exercises, and production patterns.
-- **A shared glossary** to keep terminology consistent across tracks.
+Published Outlook calendar for sessions and related events.
 
-## LCLS updates and news
+<div class="calendar-embed">
+<iframe title="LCLS Agentic AI curriculum calendar" src="https://outlook.office365.com/owa/calendar/69bc28661e2b490284ad2dac72b83276@slac.stanford.edu/9d909b3175b84a579056d1ade156891b3803106290359531481/calendar.html" width="100%" height="600" frameborder="0" loading="lazy"></iframe>
+</div>
 
-Use this page as the lightweight front door for recent updates on agentic AI work at LCLS, then jump into the curriculum for details.
+[Open this calendar in Outlook on the web](https://outlook.office365.com/owa/calendar/69bc28661e2b490284ad2dac72b83276@slac.stanford.edu/9d909b3175b84a579056d1ade156891b3803106290359531481/calendar.html)
