@@ -244,6 +244,34 @@
         padding-top: 0;
         border-top: 0;
       }
+      @media (min-width: 1024px) {
+        #panel-ops.sidebar-left-collapsed {
+          grid-template-columns: 3.25rem minmax(0, 1fr) minmax(220px, 280px);
+        }
+        #panel-ops.sidebar-right-collapsed {
+          grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) 3.25rem;
+        }
+        #panel-ops.sidebar-left-collapsed.sidebar-right-collapsed {
+          grid-template-columns: 3.25rem minmax(0, 1fr) 3.25rem;
+        }
+        #panel-ops.sidebar-left-collapsed #track-sidebar,
+        #panel-ops.sidebar-right-collapsed #outline-sidebar {
+          padding: 0.5rem;
+        }
+        #panel-ops.sidebar-left-collapsed #track-sidebar-body,
+        #panel-ops.sidebar-left-collapsed #track-sidebar-title,
+        #panel-ops.sidebar-right-collapsed #outline-root,
+        #panel-ops.sidebar-right-collapsed #outline-heading,
+        #panel-ops.sidebar-right-collapsed #outline-toggle {
+          display: none;
+        }
+        #panel-ops.sidebar-left-collapsed #track-sidebar-header,
+        #panel-ops.sidebar-right-collapsed #outline-sidebar-header {
+          justify-content: center;
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
     </style>
   </head>
 
@@ -379,12 +407,26 @@
       >
         <!-- Left: tracks (below main on narrow screens) -->
         <aside
+          id="track-sidebar"
           class="order-2 rounded-xl border border-curriculum-border bg-curriculum-panel p-3 shadow-deck-inset lg:order-none"
           aria-label="Curriculum tracks"
         >
-          <div class="mb-2 px-2 text-sm font-medium text-curriculum-ink">Explore curriculum</div>
+          <div id="track-sidebar-header" class="mb-2 flex items-center justify-between gap-2 px-2">
+            <div id="track-sidebar-title" class="text-sm font-medium text-curriculum-ink">Explore curriculum</div>
+            <button
+              type="button"
+              id="track-sidebar-toggle"
+              class="hidden shrink-0 rounded px-2 py-1 text-xs text-curriculum-accent-hover hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent lg:inline-flex"
+              aria-expanded="true"
+              aria-controls="track-sidebar-body"
+              aria-label="Collapse curriculum tracks"
+              title="Collapse curriculum tracks"
+            >
+              &lt;
+            </button>
+          </div>
 
-          <nav class="space-y-2">
+          <nav id="track-sidebar-body" class="space-y-2">
             <button
               type="button"
               class="track-btn w-full rounded-lg border border-curriculum-accent/50 bg-curriculum-elevated/85 px-3 py-2 text-left ring-1 ring-curriculum-accent/30 transition hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent"
@@ -639,21 +681,35 @@
 
         <!-- Right: page outline (compact on narrow screens) -->
         <aside
+          id="outline-sidebar"
           class="order-3 rounded-xl border border-curriculum-border bg-curriculum-panel p-2 shadow-deck-inset lg:order-none lg:p-3 lg:sticky lg:top-6 lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto"
           aria-label="Page outline"
         >
-          <div class="mb-1.5 flex items-center justify-between gap-2 px-0.5 lg:mb-2 lg:px-1">
+          <div id="outline-sidebar-header" class="mb-1.5 flex items-center justify-between gap-2 px-0.5 lg:mb-2 lg:px-1">
             <span id="outline-heading" class="text-[11px] font-medium leading-tight text-curriculum-soft lg:text-xs"
               >Pages · Basic</span>
-            <button
-              type="button"
-              id="outline-toggle"
-              class="hidden shrink-0 rounded px-1.5 py-0.5 text-[10px] text-curriculum-accent-hover hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent lg:px-2 lg:py-1 lg:text-xs"
-              aria-pressed="false"
-              aria-controls="outline-root"
-            >
-              Show all tracks
-            </button>
+            <div class="flex shrink-0 items-center gap-1">
+              <button
+                type="button"
+                id="outline-toggle"
+                class="hidden shrink-0 rounded px-1.5 py-0.5 text-[10px] text-curriculum-accent-hover hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent lg:px-2 lg:py-1 lg:text-xs"
+                aria-pressed="false"
+                aria-controls="outline-root"
+              >
+                Show all tracks
+              </button>
+              <button
+                type="button"
+                id="outline-sidebar-toggle"
+                class="hidden shrink-0 rounded px-2 py-1 text-xs text-curriculum-accent-hover hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent lg:inline-flex"
+                aria-expanded="true"
+                aria-controls="outline-root"
+                aria-label="Collapse page outline"
+                title="Collapse page outline"
+              >
+                &gt;
+              </button>
+            </div>
           </div>
           <div
             id="outline-root"
@@ -918,16 +974,23 @@
       const OUTLINE_TOGGLE = document.getElementById("outline-toggle");
       const OUTLINE_ROOT = document.getElementById("outline-root");
       const OUTLINE_HEADING = document.getElementById("outline-heading");
+      const TRACK_SIDEBAR_TOGGLE = document.getElementById("track-sidebar-toggle");
+      const OUTLINE_SIDEBAR_TOGGLE = document.getElementById("outline-sidebar-toggle");
       const MOBILE_TRACK_SELECT = document.getElementById("mobile-track-select");
       const MOBILE_TRACK_WRAP = document.getElementById("mobile-track-wrap");
       const MOBILE_JUMP_SELECT = document.getElementById("mobile-jump-select");
       const SITE_LAST_UPDATED = document.getElementById("site-last-updated");
       const WELCOME_PATH = "content/welcome.md";
+      const SIDEBAR_STORAGE_KEY = "lcls-sidebar-state";
 
       let lastLoadedHash = "";
       let lastLoadedWelcome = false;
       /** false = outline lists only the selected track; true = all tracks */
       let outlineAllTracks = false;
+      const sidebarState = {
+        leftCollapsed: false,
+        rightCollapsed: false,
+      };
 
       marked.setOptions({
         gfm: true,
@@ -1251,6 +1314,69 @@
         MOBILE_JUMP_CONTROLS?.classList.toggle("hidden", enabled);
         OPS_TOOLBAR?.classList.toggle("hidden", enabled);
         CONTENT_EL?.classList.toggle("glossary-readable", enabled);
+      }
+
+      function loadSidebarState() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(SIDEBAR_STORAGE_KEY) || "{}");
+          sidebarState.leftCollapsed = Boolean(saved.leftCollapsed);
+          sidebarState.rightCollapsed = Boolean(saved.rightCollapsed);
+        } catch (_) {
+          sidebarState.leftCollapsed = false;
+          sidebarState.rightCollapsed = false;
+        }
+      }
+
+      function saveSidebarState() {
+        try {
+          localStorage.setItem(SIDEBAR_STORAGE_KEY, JSON.stringify(sidebarState));
+        } catch (_) {}
+      }
+
+      function syncSidebarToggleUi() {
+        PANEL_OPS?.classList.toggle("sidebar-left-collapsed", sidebarState.leftCollapsed);
+        PANEL_OPS?.classList.toggle("sidebar-right-collapsed", sidebarState.rightCollapsed);
+
+        if (TRACK_SIDEBAR_TOGGLE) {
+          const expanded = !sidebarState.leftCollapsed;
+          TRACK_SIDEBAR_TOGGLE.setAttribute("aria-expanded", expanded ? "true" : "false");
+          TRACK_SIDEBAR_TOGGLE.setAttribute(
+            "aria-label",
+            expanded ? "Collapse curriculum tracks" : "Expand curriculum tracks"
+          );
+          TRACK_SIDEBAR_TOGGLE.setAttribute(
+            "title",
+            expanded ? "Collapse curriculum tracks" : "Expand curriculum tracks"
+          );
+          TRACK_SIDEBAR_TOGGLE.textContent = expanded ? "<" : ">";
+        }
+
+        if (OUTLINE_SIDEBAR_TOGGLE) {
+          const expanded = !sidebarState.rightCollapsed;
+          OUTLINE_SIDEBAR_TOGGLE.setAttribute("aria-expanded", expanded ? "true" : "false");
+          OUTLINE_SIDEBAR_TOGGLE.setAttribute(
+            "aria-label",
+            expanded ? "Collapse page outline" : "Expand page outline"
+          );
+          OUTLINE_SIDEBAR_TOGGLE.setAttribute(
+            "title",
+            expanded ? "Collapse page outline" : "Expand page outline"
+          );
+          OUTLINE_SIDEBAR_TOGGLE.textContent = expanded ? ">" : "<";
+        }
+      }
+
+      function wireSidebarToggles() {
+        TRACK_SIDEBAR_TOGGLE?.addEventListener("click", () => {
+          sidebarState.leftCollapsed = !sidebarState.leftCollapsed;
+          saveSidebarState();
+          syncSidebarToggleUi();
+        });
+        OUTLINE_SIDEBAR_TOGGLE?.addEventListener("click", () => {
+          sidebarState.rightCollapsed = !sidebarState.rightCollapsed;
+          saveSidebarState();
+          syncSidebarToggleUi();
+        });
       }
 
       function wireOutlineToggle() {
@@ -1600,10 +1726,13 @@
 
       document.addEventListener("DOMContentLoaded", () => {
         setTopTab("welcome");
+        loadSidebarState();
+        syncSidebarToggleUi();
         updateTrackAvailabilityUi();
         updateLastUpdatedFooter();
         wireThemeToggle();
         wireTopTabs();
+        wireSidebarToggles();
         wireOutlineToggle();
         wireTrackButtons();
         wireGlossaryButtons();
