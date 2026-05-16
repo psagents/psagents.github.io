@@ -68,6 +68,12 @@
         background: rgb(228 220 210 / 0.95) !important;
         color: rgb(var(--c-ink) / 1) !important;
       }
+      /* In day mode the pre background is dark (--c-pre) but --c-ink is also
+         dark, causing unreadable dark-on-dark text. Use a light warm tone that
+         works against the dark surface and harmonises with Prism Tomorrow. */
+      html[data-theme="day"] .md pre {
+        color: rgb(220 213 203 / 1);
+      }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
