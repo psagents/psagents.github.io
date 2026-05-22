@@ -1,6 +1,16 @@
 # Session 2 Recording
 
-Find below the slides for the second Agentic AI at LCLS session.
+Find below the slides and recording of the second Agentic AI at LCLS session.
+
+## Recording
+
+<div class="video-embed">
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xPrvhE3gpjA?si=Vg8tfxzHs0r5LRRW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+</div>
+
+## Slides
 
 <div class="max-w-full overflow-x-auto">
 

@@ -189,6 +189,21 @@
         min-height: 560px;
         border: 0;
       }
+      .md .video-embed {
+        margin: 0.75rem 0;
+        overflow: hidden;
+        border-radius: 0.75rem;
+        border: 1px solid rgb(var(--c-border) / 1);
+        background: rgb(var(--c-elevated) / 0.35);
+        aspect-ratio: 16 / 9;
+        max-width: 100%;
+      }
+      .md .video-embed iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
       .md ul.useful-resources {
         list-style-type: disc;
         margin: 0.65rem 0 0.85rem;
@@ -1096,6 +1111,7 @@
         if (/^https:\/\/calendar\.google\.com\/calendar\/embed/i.test(v)) return true;
         if (/^https:\/\/outlook\.office365\.com\/owa\/calendar\//i.test(v)) return true;
         if (/^https:\/\/outlook\.live\.com\/owa\/calendar\//i.test(v)) return true;
+        if (/^https:\/\/www\.youtube\.com\/embed\//i.test(v)) return true;
         return false;
       }
 
@@ -1123,6 +1139,8 @@
               "title",
               "loading",
               "sandbox",
+              "allow",
+              "referrerpolicy",
             ],
           });
         } finally {
