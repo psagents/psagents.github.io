@@ -17,7 +17,7 @@ source <(curl -fsSL https://gist.githubusercontent.com/carbonscott/894b92904e373
 opencode-sandbox
 ```
 
-if you get a permission error, reach out to be added to ps-users group
+*If you get a permission error, reach out to be added to ps-users group.*
 
 # Welcome
 
