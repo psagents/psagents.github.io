@@ -17,6 +17,8 @@ source <(curl -fsSL https://gist.githubusercontent.com/carbonscott/894b92904e373
 opencode-sandbox
 ```
 
+if you get a permission error, reach out to be added to ps-users group
+
 # Welcome
 
 This site shares practical guidance for building and using agentic AI at LCLS. It is meant to help teams apply agentic AI to real science and operations workflows, capture what works in production rather than only demos, and share reusable patterns for tooling, safety, and evaluation. You will find **curriculum tracks** for different experience levels (starting with Agents for Ops), **examples** across concepts, practice exercises, and production patterns, and a **shared glossary** so terminology stays consistent across tracks. Treat this page as a light front door for news and updates on agentic AI work at LCLS, then use the curriculum tabs for depth.
