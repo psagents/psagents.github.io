@@ -204,6 +204,19 @@
         height: 100%;
         border: 0;
       }
+      .md .slides-placeholder {
+        margin: 0.75rem 0;
+        padding: 2rem 1.25rem;
+        border-radius: 0.75rem;
+        border: 1px dashed rgb(var(--c-border) / 1);
+        background: rgb(var(--c-elevated) / 0.25);
+        text-align: center;
+        color: rgb(var(--c-muted) / 1);
+      }
+      .md .slides-placeholder p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
       .md ul.useful-resources {
         list-style-type: disc;
         margin: 0.65rem 0 0.85rem;
@@ -786,6 +799,7 @@
 
       const SECTION_LABEL = {
         concepts: "Concepts and Take-aways",
+        examples: "Examples",
         practice: "Practice Examples",
         production: "Production Examples",
         criticism: "Criticism and Defense",
@@ -832,46 +846,10 @@
               section: "concepts",
             },
             {
-              id: "practice/example-01",
-              title: "Index a local docs folder",
-              path: "content/ops/basic/practice/example-01.md",
-              section: "practice",
-            },
-            {
-              id: "practice/example-02",
-              title: "Wrap a CLI in a shell function",
-              path: "content/ops/basic/practice/example-02.md",
-              section: "practice",
-            },
-            {
-              id: "production/example-01",
-              title: "docs-index — one tool, many skills",
-              path: "content/ops/basic/production/example-01.md",
-              section: "production",
-            },
-            {
-              id: "production/example-02",
-              title: "elog-copilot — cron pipeline meets AI",
-              path: "content/ops/basic/production/example-02.md",
-              section: "production",
-            },
-            {
-              id: "production/example-03",
-              title: "ask-slurm-s3df — wrapping existing system tools",
-              path: "content/ops/basic/production/example-03.md",
-              section: "production",
-            },
-            {
-              id: "production/example-04",
-              title: "experimental-hutch-python — the safety boundary",
-              path: "content/ops/basic/production/example-04.md",
-              section: "production",
-            },
-            {
-              id: "criticism-defense",
-              title: "Criticism and Defense",
-              path: "content/ops/basic/criticism-defense.md",
-              section: "criticism",
+              id: "examples/mcp-agent-skills",
+              title: "MCP & Agent Skills",
+              path: "content/ops/basic/examples/mcp-agent-skills.md",
+              section: "examples",
             },
           ],
         },
@@ -1043,7 +1021,8 @@
           pageId !== "session-2" &&
           pageId !== "glossary" &&
           pageId !== "introduction/prompt-cost" &&
-          pageId !== "introduction/agent-brakes"
+          pageId !== "introduction/agent-brakes" &&
+          pageId !== "examples/mcp-agent-skills"
         );
       }
 
@@ -1206,7 +1185,7 @@
             : `Pages in ${CURRICULUM[currentTrack]?.label || currentTrack}`
         );
 
-        const sectionOrder = ["concepts", "practice", "production", "criticism"];
+        const sectionOrder = ["concepts", "examples", "practice", "production", "criticism"];
         let html = "";
         for (const trackId of tracksToRender) {
           const t = CURRICULUM[trackId];
