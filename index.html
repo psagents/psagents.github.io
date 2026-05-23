@@ -160,17 +160,48 @@
         margin: 0.5rem 0;
         padding-left: 1.25rem;
       }
+      .md ol {
+        list-style-type: decimal;
+        list-style-position: outside;
+      }
       .md code {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-size: 0.95em;
       }
       .md pre {
+        position: relative;
         margin: 0.75rem 0;
-        padding: 1rem;
+        padding: 1rem 3.25rem 1rem 1rem;
         overflow: auto;
         border-radius: 0.75rem;
         background: var(--curriculum-pre);
         box-shadow: var(--md-pre-inset);
+      }
+      .md .copy-code-btn {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        z-index: 1;
+        border-radius: 0.375rem;
+        border: 1px solid rgb(var(--c-border) / 0.85);
+        background: rgb(var(--c-elevated) / 0.92);
+        padding: 0.2rem 0.5rem;
+        font-size: 0.6875rem;
+        font-weight: 500;
+        line-height: 1.25;
+        color: rgb(var(--c-muted) / 1);
+        cursor: pointer;
+      }
+      .md .copy-code-btn:hover {
+        background: rgb(var(--c-hover) / 1);
+        color: rgb(var(--c-ink) / 1);
+      }
+      .md .copy-code-btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgb(var(--c-accent) / 0.45);
+      }
+      .md .copy-code-btn.copy-code-btn--done {
+        color: rgb(var(--c-accent) / 1);
       }
       .md pre[class*="language-"],
       .md code[class*="language-"] {
@@ -1127,6 +1158,55 @@
         }
       }
 
+      async function copyTextToClipboard(text) {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        if (!ok) throw new Error("Copy failed");
+      }
+
+      function attachCopyButtons(root) {
+        if (!root) return;
+        root.querySelectorAll("pre").forEach((pre) => {
+          if (pre.querySelector(".copy-code-btn")) return;
+          const codeEl = pre.querySelector("code");
+          const text = (codeEl ? codeEl.textContent : pre.textContent) || "";
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "copy-code-btn";
+          btn.textContent = "Copy";
+          btn.setAttribute("aria-label", "Copy code to clipboard");
+          btn.addEventListener("click", async () => {
+            try {
+              await copyTextToClipboard(text);
+              const prev = btn.textContent;
+              btn.textContent = "Copied!";
+              btn.classList.add("copy-code-btn--done");
+              window.setTimeout(() => {
+                btn.textContent = prev;
+                btn.classList.remove("copy-code-btn--done");
+              }, 1600);
+            } catch (_) {
+              btn.textContent = "Failed";
+              window.setTimeout(() => {
+                btn.textContent = "Copy";
+              }, 1600);
+            }
+          });
+          pre.appendChild(btn);
+        });
+      }
+
       function renderMarkdown(markdownText) {
         const dirtyHtml = marked.parse(markdownText);
         const cleanHtml = sanitizeMarkdownHtml(dirtyHtml);
@@ -1134,6 +1214,7 @@
         if (window.Prism && typeof window.Prism.highlightAllUnder === "function") {
           window.Prism.highlightAllUnder(CONTENT_EL);
         }
+        attachCopyButtons(CONTENT_EL);
       }
 
       function setActiveTrackButton(trackId) {
@@ -1485,7 +1566,6 @@
         let parsed = parseHash();
         if (parsed?.mode === "welcome") {
           setTopTab("welcome");
-          if (lastLoadedWelcome) return;
           lastLoadedWelcome = true;
           lastLoadedHash = "";
           if (WELCOME_CONTENT_EL) {
@@ -1498,6 +1578,7 @@
               if (window.Prism && typeof window.Prism.highlightAllUnder === "function") {
                 window.Prism.highlightAllUnder(WELCOME_CONTENT_EL);
               }
+              attachCopyButtons(WELCOME_CONTENT_EL);
             } catch (err) {
               WELCOME_CONTENT_EL.innerHTML = `<div class="rounded-lg border border-red-900/50 bg-red-950/30 p-4"><div class="text-sm font-medium text-red-200">Could not load Getting Started page.</div><div class="mt-2 text-xs break-words text-red-300">${escapeHtml(String(err.message || err))}</div></div>`;
             }

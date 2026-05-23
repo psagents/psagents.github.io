@@ -1,3 +1,22 @@
+**1. Access LCLS interactive nodes on S3DF**
+
+```bash
+ssh s3dflogin-mfa.slac.stanford.edu
+ssh psana
+```
+
+**2. Install OpenCode in LCLS sandbox**
+
+```bash
+source <(curl -fsSL https://gist.githubusercontent.com/carbonscott/894b92904e3733fb2af1a6d91720b348/raw/e05bc96a7a681116337c5c6f05b857a8d39830bc/install.sh)
+```
+
+**3. Launch OpenCode!**
+
+```bash
+opencode-sandbox
+```
+
 # Welcome
 
 This site shares practical guidance for building and using agentic AI at LCLS. It is meant to help teams apply agentic AI to real science and operations workflows, capture what works in production rather than only demos, and share reusable patterns for tooling, safety, and evaluation. You will find **curriculum tracks** for different experience levels (starting with Agents for Ops), **examples** across concepts, practice exercises, and production patterns, and a **shared glossary** so terminology stays consistent across tracks. Treat this page as a light front door for news and updates on agentic AI work at LCLS, then use the curriculum tabs for depth.
