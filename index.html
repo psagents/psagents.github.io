@@ -847,52 +847,55 @@
           blurb: "Foundations, terminology, and first agents for ops workflows.",
           pages: [
             {
-              id: "session-1",
-              title: "Session 1 Recording",
-              path: "content/ops/basic/session-1.md",
-              section: "concepts",
+              id: "lecture/getting-started",
+              title: "Getting started",
+              path: "content/ops/basic/getting-started.md",
+              section: "lecture",
+              outlineKind: "class",
             },
             {
-              id: "introduction/prompt-cost",
+              id: "post/prompt-cost",
               title: "Prompt cost",
               path: "content/ops/basic/introduction/prompt-cost.md",
-              section: "concepts",
+              section: "post",
+              outlineKind: "blog",
+              outlineIndent: true,
             },
             {
-              id: "introduction/agent-brakes",
+              id: "post/agent-brakes",
               title: "Agent brakes",
               path: "content/ops/basic/introduction/agent-brakes.md",
-              section: "concepts",
+              section: "post",
+              outlineKind: "blog",
+              outlineIndent: true,
             },
             {
-              id: "session-2",
-              title: "Session 2 Recording",
-              path: "content/ops/basic/session-2.md",
-              section: "concepts",
+              id: "lecture/mcp-agent-skills",
+              title: "MCP & Agent Skills",
+              path: "content/ops/basic/examples/mcp-agent-skills.md",
+              section: "lecture",
+              outlineKind: "class",
+            },
+            {
+              id: "lecture/context-engineering",
+              title: "Context Engineering",
+              path: "content/ops/basic/examples/context-engineering.md",
+              section: "lecture",
+              outlineKind: "class",
+            },
+            {
+              id: "post/context-is-the-only-lever",
+              title: "Context is the only lever",
+              path: "content/ops/basic/introduction/context-is-the-only-lever.md",
+              section: "post",
+              outlineKind: "blog",
+              outlineIndent: true,
             },
             {
               id: "glossary",
               title: "Glossary",
               path: "content/ops/basic/glossary.md",
               section: "concepts",
-            },
-            {
-              id: "examples/mcp-agent-skills",
-              title: "MCP & Agent Skills",
-              path: "content/ops/basic/examples/mcp-agent-skills.md",
-              section: "examples",
-            },
-            {
-              id: "examples/context-engineering",
-              title: "Context Engineering",
-              path: "content/ops/basic/examples/context-engineering.md",
-              section: "examples",
-            },
-            {
-              id: "introduction/context-is-the-only-lever",
-              title: "Context is the only lever",
-              path: "content/ops/basic/introduction/context-is-the-only-lever.md",
-              section: "examples",
             },
           ],
         },
@@ -1058,16 +1061,54 @@
         return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="${extraClass}" aria-hidden="true"><path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M5.5 7V5a2.5 2.5 0 015 0v2"/><rect width="11" height="8" x="2.5" y="7" rx="1.25" stroke="currentColor" stroke-width="1.5"/></svg>`;
       }
 
+      function classIconSvg(extraClass = "h-3 w-3 shrink-0 text-curriculum-soft") {
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="${extraClass}" aria-hidden="true"><path stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.5 8 3.5l5.5 3v5.5L8 15.5l-5.5-4V6.5z"/><path stroke="currentColor" stroke-width="1.25" stroke-linecap="round" d="M2.5 6.5 8 9.5l5.5-3"/><path stroke="currentColor" stroke-width="1.25" stroke-linecap="round" d="M8 9.5V15.5"/></svg>`;
+      }
+
+      function blogIconSvg(extraClass = "h-3 w-3 shrink-0 text-curriculum-soft") {
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="${extraClass}" aria-hidden="true"><path stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" d="M3 2.5h7.5L13 5v8.5H3V2.5z"/><path stroke="currentColor" stroke-width="1.25" stroke-linecap="round" d="M6 2.5V5.5h4"/><path stroke="currentColor" stroke-width="1.25" stroke-linecap="round" d="M5.5 8h5M5.5 10h5M5.5 12h3"/></svg>`;
+      }
+
+      function outlinePageLabelHtml(page) {
+        const title = `<span class="min-w-0 truncate">${escapeHtml(page.title)}</span>`;
+        if (page.outlineKind === "class") {
+          return `<span class="flex min-w-0 flex-1 items-center gap-1">${title}${classIconSvg()}</span>`;
+        }
+        if (page.outlineKind === "blog") {
+          return `<span class="flex min-w-0 flex-1 items-center gap-1">${blogIconSvg()}${title}</span>`;
+        }
+        return title;
+      }
+
+      function outlinePageIndentClass(page) {
+        return page.outlineIndent ? " pl-3 lg:pl-4" : "";
+      }
+
+      const BASIC_PAGE_ALIASES = {
+        "getting-started": "lecture/getting-started",
+        "session-1": "lecture/getting-started",
+        "session-2": "lecture/getting-started",
+        "introduction/prompt-cost": "post/prompt-cost",
+        "introduction/agent-brakes": "post/agent-brakes",
+        "examples/mcp-agent-skills": "lecture/mcp-agent-skills",
+        "examples/context-engineering": "lecture/context-engineering",
+        "introduction/context-is-the-only-lever": "post/context-is-the-only-lever",
+      };
+
+      function resolveBasicPageId(pageId) {
+        return BASIC_PAGE_ALIASES[pageId] || pageId;
+      }
+
       function isBasicLockedPageId(pageId) {
+        const id = resolveBasicPageId(pageId);
         return (
-          pageId !== "session-1" &&
-          pageId !== "session-2" &&
-          pageId !== "glossary" &&
-          pageId !== "introduction/prompt-cost" &&
-          pageId !== "introduction/agent-brakes" &&
-          pageId !== "examples/mcp-agent-skills" &&
-          pageId !== "examples/context-engineering" &&
-          pageId !== "introduction/context-is-the-only-lever"
+          id !== "lecture/getting-started" &&
+          id !== "glossary" &&
+          id !== "post/prompt-cost" &&
+          id !== "post/agent-brakes" &&
+          id !== "lecture/mcp-agent-skills" &&
+          id !== "lecture/context-engineering" &&
+          id !== "post/context-is-the-only-lever"
         );
       }
 
@@ -1289,21 +1330,32 @@
           if (outlineAllTracks) {
             html += `<div class="px-1 text-[10px] font-semibold uppercase tracking-wide text-curriculum-soft lg:text-xs">${escapeHtml(t.label)}</div>`;
           }
-          for (const sec of sectionOrder) {
-            const inSection = t.pages.filter((p) => p.section === sec && p.id !== "glossary");
-            if (!inSection.length) continue;
-            html += `<div class="mt-1 px-1 text-[9px] font-medium uppercase leading-tight text-curriculum-faint lg:mt-1.5 lg:text-[10px]">${escapeHtml(sectionHeadingLabel(trackId, sec))}</div>`;
+          if (trackId === "basic") {
+            const flatPages = t.pages.filter((p) => p.id !== "glossary");
             html += `<ul class="mt-0.5 space-y-0">`;
-            for (const p of inSection) {
-              const locked = trackId === "basic" && isBasicLockedPageId(p.id);
+            for (const p of flatPages) {
+              const locked = isBasicLockedPageId(p.id);
+              const indent = outlinePageIndentClass(p);
               if (locked) {
-                html += `<li><span class="flex items-center gap-1 rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-soft lg:px-1.5 lg:text-xs lg:leading-normal" title="Locked">${lockIconSvg()}<span>${escapeHtml(p.title)}</span></span></li>`;
+                html += `<li><span class="flex items-center gap-1 rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-soft${indent} lg:px-1.5 lg:text-xs lg:leading-normal" title="Locked">${lockIconSvg()}${outlinePageLabelHtml(p)}</span></li>`;
               } else {
                 const href = hashFor(trackId, p.id);
-                html += `<li><a href="${href}" class="outline-link block rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-muted hover:bg-curriculum-elevated hover:text-curriculum-ink lg:px-1.5 lg:text-xs lg:leading-normal">${escapeHtml(p.title)}</a></li>`;
+                html += `<li><a href="${href}" class="outline-link flex items-center gap-1 rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-muted hover:bg-curriculum-elevated hover:text-curriculum-ink${indent} lg:px-1.5 lg:text-xs lg:leading-normal">${outlinePageLabelHtml(p)}</a></li>`;
               }
             }
             html += `</ul>`;
+          } else {
+            for (const sec of sectionOrder) {
+              const inSection = t.pages.filter((p) => p.section === sec && p.id !== "glossary");
+              if (!inSection.length) continue;
+              html += `<div class="mt-1 px-1 text-[9px] font-medium uppercase leading-tight text-curriculum-faint lg:mt-1.5 lg:text-[10px]">${escapeHtml(sectionHeadingLabel(trackId, sec))}</div>`;
+              html += `<ul class="mt-0.5 space-y-0">`;
+              for (const p of inSection) {
+                const href = hashFor(trackId, p.id);
+                html += `<li><a href="${href}" class="outline-link block rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-muted hover:bg-curriculum-elevated hover:text-curriculum-ink lg:px-1.5 lg:text-xs lg:leading-normal">${escapeHtml(p.title)}</a></li>`;
+              }
+              html += `</ul>`;
+            }
           }
           html += `</div>`;
         }
@@ -1602,22 +1654,30 @@
 
         setTopTab("ops");
         lastLoadedWelcome = false;
+        if (parsed?.mode === "ops" && parsed.track === "basic") {
+          const resolved = resolveBasicPageId(parsed.pageId);
+          if (resolved !== parsed.pageId) {
+            history.replaceState(null, "", hashFor("basic", resolved));
+            parsed = { mode: "ops", track: "basic", pageId: resolved };
+          }
+        }
+
         const valid =
           parsed &&
           parsed.mode === "ops" &&
           isTrackAvailable(parsed.track) &&
           findPage(parsed.track, parsed.pageId);
         if (!valid) {
-          history.replaceState(null, "", hashFor("basic", "session-1"));
-          parsed = { mode: "ops", track: "basic", pageId: "session-1" };
+          history.replaceState(null, "", hashFor("basic", "lecture/getting-started"));
+          parsed = { mode: "ops", track: "basic", pageId: "lecture/getting-started" };
         }
 
         let { track, pageId } = parsed;
         if (track === "basic" && isBasicLockedPageId(pageId)) {
-          history.replaceState(null, "", hashFor("basic", "session-1"));
-          parsed = { mode: "ops", track: "basic", pageId: "session-1" };
+          history.replaceState(null, "", hashFor("basic", "lecture/getting-started"));
+          parsed = { mode: "ops", track: "basic", pageId: "lecture/getting-started" };
           track = "basic";
-          pageId = "session-1";
+          pageId = "lecture/getting-started";
         }
 
         const page = findPage(track, pageId);
@@ -1725,7 +1785,7 @@
         TAB_OPS?.addEventListener("click", () => {
           const parsed = parseHash();
           const isOps = parsed?.mode === "ops";
-          const next = isOps ? hashFor(parsed.track, parsed.pageId) : hashFor("basic", "session-1");
+          const next = isOps ? hashFor(parsed.track, parsed.pageId) : hashFor("basic", "lecture/getting-started");
           if (location.hash !== next) {
             location.hash = next;
           } else {
