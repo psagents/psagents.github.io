@@ -248,6 +248,19 @@
         margin: 0;
         font-size: 0.9rem;
       }
+      .md .slides-open-link {
+        margin: 0.35rem 0 0.85rem;
+        font-size: 0.9rem;
+      }
+      .md .slides-open-link a {
+        color: rgb(var(--c-accent) / 1);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .md .slides-open-link a:hover {
+        color: rgb(var(--c-accent-hover) / 1);
+      }
       .md ul.useful-resources {
         list-style-type: disc;
         margin: 0.65rem 0 0.85rem;
@@ -1249,6 +1262,8 @@
               "sandbox",
               "allow",
               "referrerpolicy",
+              "target",
+              "rel",
             ],
           });
         } finally {

@@ -20,6 +20,8 @@ Find below the slides and recording of the first Agentic AI at LCLS session that
 
 </div>
 
+<p class="slides-open-link"><a href="https://docs.google.com/presentation/d/1AJok5vXamOj8CnpnDdXfu5omgOGjWz_QIr2ng7R8E7s/edit" target="_blank" rel="noopener noreferrer">Open slides</a></p>
+
 ## Session 2/2
 
 Find below the slides and recording of the second Agentic AI at LCLS session.
@@ -39,3 +41,5 @@ Find below the slides and recording of the second Agentic AI at LCLS session.
 <iframe src="https://docs.google.com/presentation/d/150dE9zA0rzh_LKsEH8EuZVRCFFZESg6Z9rcEeAUfi_Y/embed?start=false&loop=false&delayms=3000" title="Session 2 Presentation Slides" width="100%" height="839" sandbox="allow-scripts allow-same-origin allow-presentation" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 </div>
+
+<p class="slides-open-link"><a href="https://docs.google.com/presentation/d/150dE9zA0rzh_LKsEH8EuZVRCFFZESg6Z9rcEeAUfi_Y/edit" target="_blank" rel="noopener noreferrer">Open slides</a></p>
