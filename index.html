@@ -629,79 +629,7 @@
                 </span>
               </div>
               <p class="mt-2 text-xs leading-snug text-curriculum-faint">
-                Prompting discipline, evaluation mindset, and agent reliability patterns.
-              </p>
-            </button>
-
-            <button
-              type="button"
-              disabled
-              aria-disabled="true"
-              aria-label="Builder track, locked"
-              title="Locked"
-              class="w-full cursor-not-allowed rounded-lg border border-curriculum-border bg-curriculum-panel px-3 py-2 text-left focus:outline-none"
-            >
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <span class="text-sm font-medium text-curriculum-soft">Builder</span>
-                <span class="inline-flex shrink-0 items-center rounded-full bg-curriculum-elevated p-1 text-curriculum-soft" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
-                    <path
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M5.5 7V5a2.5 2.5 0 015 0v2"
-                    />
-                    <rect
-                      width="11"
-                      height="8"
-                      x="2.5"
-                      y="7"
-                      rx="1.25"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                </span>
-              </div>
-              <p class="mt-2 text-xs leading-snug text-curriculum-faint">
-                Build tool-using pipelines, structured workflows, and reusable agent components.
-              </p>
-            </button>
-
-            <button
-              type="button"
-              disabled
-              aria-disabled="true"
-              aria-label="Coder track, locked"
-              title="Locked"
-              class="w-full cursor-not-allowed rounded-lg border border-curriculum-border bg-curriculum-panel px-3 py-2 text-left focus:outline-none"
-            >
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <span class="text-sm font-medium text-curriculum-soft">Coder</span>
-                <span class="inline-flex shrink-0 items-center rounded-full bg-curriculum-elevated p-1 text-curriculum-soft" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
-                    <path
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M5.5 7V5a2.5 2.5 0 015 0v2"
-                    />
-                    <rect
-                      width="11"
-                      height="8"
-                      x="2.5"
-                      y="7"
-                      rx="1.25"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                </span>
-              </div>
-              <p class="mt-2 text-xs leading-snug text-curriculum-faint">
-                Implement and debug agent loops, tool integrations, and safety checks.
+                Put your agents to work!
               </p>
             </button>
 
@@ -895,7 +823,7 @@
     </div>
 
     <script>
-      const TRACK_ORDER = ["basic", "advanced-user", "builder", "coder"];
+      const TRACK_ORDER = ["basic", "advanced-user"];
       /** Unlocked tracks in the UI; add ids here when a track goes live. */
       const TRACKS_AVAILABLE = ["basic"];
 
@@ -980,7 +908,7 @@
         },
         "advanced-user": {
           label: "Advanced User",
-          blurb: "Prompting discipline, evaluation mindset, and agent reliability patterns.",
+          blurb: "Put your agents to work!",
           pages: [
             {
               id: "concepts",
@@ -1010,78 +938,6 @@
               id: "production/example-02",
               title: "Compare two prompts (read-only tool)",
               path: "content/ops/advanced-user/production/example-02.md",
-              section: "production",
-            },
-          ],
-        },
-        builder: {
-          label: "Builder",
-          blurb: "Build tool-using pipelines, structured workflows, and reusable agent components.",
-          pages: [
-            {
-              id: "concepts",
-              title: "Concepts and Take-aways",
-              path: "content/ops/builder/concepts.md",
-              section: "concepts",
-            },
-            {
-              id: "practice/example-01",
-              title: "Sketch a five-step workflow",
-              path: "content/ops/builder/practice/example-01.md",
-              section: "practice",
-            },
-            {
-              id: "practice/example-02",
-              title: "JSON schema for one tool call",
-              path: "content/ops/builder/practice/example-02.md",
-              section: "practice",
-            },
-            {
-              id: "production/example-01",
-              title: "Trace one workflow on S3DF",
-              path: "content/ops/builder/production/example-01.md",
-              section: "production",
-            },
-            {
-              id: "production/example-02",
-              title: "SKILL stub + real CLI on S3DF",
-              path: "content/ops/builder/production/example-02.md",
-              section: "production",
-            },
-          ],
-        },
-        coder: {
-          label: "Coder",
-          blurb: "Implement and debug agent loops, tool integrations, and safety checks.",
-          pages: [
-            {
-              id: "concepts",
-              title: "Concepts and Take-aways",
-              path: "content/ops/coder/concepts.md",
-              section: "concepts",
-            },
-            {
-              id: "practice/example-01",
-              title: "observe / plan / act / verify",
-              path: "content/ops/coder/practice/example-01.md",
-              section: "practice",
-            },
-            {
-              id: "practice/example-02",
-              title: "Logging around tool calls",
-              path: "content/ops/coder/practice/example-02.md",
-              section: "practice",
-            },
-            {
-              id: "production/example-01",
-              title: "Read-only probe on S3DF",
-              path: "content/ops/coder/production/example-01.md",
-              section: "production",
-            },
-            {
-              id: "production/example-02",
-              title: "Dry-run integration vs S3DF paths",
-              path: "content/ops/coder/production/example-02.md",
               section: "production",
             },
           ],
