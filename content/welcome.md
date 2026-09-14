@@ -3,7 +3,6 @@
 <div class="content-tab-list" role="tablist" aria-label="Harness setup">
 <button type="button" class="content-tab" role="tab" aria-selected="true" aria-controls="tabpanel-lcls-claudecode" id="content-tab-btn-lcls-claudecode">LCLS ClaudeCode</button>
 <button type="button" class="content-tab" role="tab" aria-selected="false" aria-controls="tabpanel-lcls-sandbox" id="content-tab-btn-lcls-sandbox">LCLS OpenCode Sandbox</button>
-<button type="button" class="content-tab" role="tab" aria-selected="false" aria-controls="tabpanel-other-harnesses" id="content-tab-btn-other-harnesses">Other harnesses</button>
 </div>
 
 <div class="content-tab-panel" role="tabpanel" id="tabpanel-lcls-claudecode" aria-labelledby="content-tab-btn-lcls-claudecode">
@@ -63,12 +62,6 @@ opencode-sandbox
 2. Ask OpenCode to set it up for you.
 
 *If you get a permission error, reach out to be added to ps-users group.*
-
-</div>
-
-<div class="content-tab-panel hidden" role="tabpanel" id="tabpanel-other-harnesses" aria-labelledby="content-tab-btn-other-harnesses" hidden>
-
-*More coming soon.*
 
 </div>
 
