@@ -27,12 +27,12 @@ ssh psana
 claude-lcls
 ```
 
-*If you get a permission error, reach out to be added to ps-users group.*
-
 **4. (optional) Use your own API key**
 
 1. Request a key from [SLAC IT](https://slacprod.servicenowservices.com/it_services?id=sc_cat_item&sys_id=515f28711b607110c5d320eae54bcb64).
 2. Ask ClaudeCode to set it up for you.
+
+*If you get a permission error, reach out to be added to ps-users group.*
 
 </div>
 
@@ -57,12 +57,12 @@ source <(curl -fsSL https://gist.githubusercontent.com/carbonscott/894b92904e373
 opencode-sandbox
 ```
 
-*If you get a permission error, reach out to be added to ps-users group.*
-
 **4. (optional) Use your own API key**
 
 1. Request a key from [SLAC IT](https://slacprod.servicenowservices.com/it_services?id=sc_cat_item&sys_id=515f28711b607110c5d320eae54bcb64).
 2. Ask OpenCode to set it up for you.
+
+*If you get a permission error, reach out to be added to ps-users group.*
 
 </div>
 
