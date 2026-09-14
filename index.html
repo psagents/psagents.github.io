@@ -375,29 +375,143 @@
         padding-top: 0;
         border-top: 0;
       }
+      .track-page-list {
+        margin: 0.5rem 0 0;
+        padding: 0.35rem 0 0.15rem 0.35rem;
+        border-left: 2px solid rgb(var(--c-accent) / 0.35);
+        list-style: none;
+      }
+      .track-page-list[hidden] {
+        display: none !important;
+      }
+      .track-page-list a {
+        display: block;
+        border-radius: 0.375rem;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.75rem;
+        line-height: 1.35;
+        color: rgb(var(--c-muted) / 1);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .track-page-list a:hover {
+        background: rgb(var(--c-elevated) / 1);
+        color: rgb(var(--c-ink) / 1);
+      }
+      .track-page-list a[aria-current="page"] {
+        background: rgb(var(--c-elevated) / 1);
+        color: rgb(var(--c-ink) / 1);
+      }
+      .track-page-list .track-page-locked {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        border-radius: 0.375rem;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.75rem;
+        line-height: 1.35;
+        color: rgb(var(--c-soft) / 1);
+      }
+      .glossary-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 0.75rem;
+        margin: 0.75rem 0 1rem;
+      }
+      .glossary-toolbar input[type="search"] {
+        min-width: 12rem;
+        flex: 1 1 12rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgb(var(--c-borderlight) / 1);
+        background: rgb(var(--c-panel) / 0.7);
+        padding: 0.45rem 0.7rem;
+        font-size: 0.875rem;
+        color: rgb(var(--c-ink) / 1);
+      }
+      .glossary-toolbar input[type="search"]:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgb(var(--c-accent) / 0.45);
+        border-color: rgb(var(--c-accent) / 1);
+      }
+      .glossary-core-filter {
+        border-radius: 9999px;
+        border: 1px solid rgb(var(--c-borderlight) / 1);
+        background: rgb(var(--c-elevated) / 0.55);
+        padding: 0.35rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: rgb(var(--c-muted) / 1);
+        cursor: pointer;
+      }
+      .glossary-core-filter[aria-pressed="true"] {
+        border-color: rgb(var(--c-accent) / 0.55);
+        background: rgb(var(--c-accent) / 0.18);
+        color: rgb(var(--c-ink) / 1);
+      }
+      .glossary-letter-index {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin: 0 0 1rem;
+      }
+      .glossary-letter-index a {
+        display: inline-flex;
+        min-width: 1.6rem;
+        justify-content: center;
+        border-radius: 0.375rem;
+        padding: 0.2rem 0.4rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: rgb(var(--c-accent) / 1);
+        text-decoration: none;
+      }
+      .glossary-letter-index a:hover {
+        background: rgb(var(--c-elevated) / 1);
+        color: rgb(var(--c-accent-hover) / 1);
+      }
+      .glossary-entry-title {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.45rem;
+      }
+      .glossary-core-badge {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 9999px;
+        border: 1px solid rgb(var(--c-accent) / 0.45);
+        background: rgb(var(--c-accent) / 0.14);
+        padding: 0.1rem 0.45rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: rgb(var(--c-accent-hover) / 1);
+        text-transform: lowercase;
+      }
+      .glossary-entry[hidden] {
+        display: none !important;
+      }
+      .glossary-letter-heading {
+        margin: 1.25rem 0 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgb(var(--c-soft) / 1);
+      }
       @media (min-width: 1024px) {
         #panel-ops.sidebar-left-collapsed {
-          grid-template-columns: 3.25rem minmax(0, 1fr) minmax(220px, 280px);
+          grid-template-columns: 3.25rem minmax(0, 1fr);
         }
-        #panel-ops.sidebar-right-collapsed {
-          grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) 3.25rem;
-        }
-        #panel-ops.sidebar-left-collapsed.sidebar-right-collapsed {
-          grid-template-columns: 3.25rem minmax(0, 1fr) 3.25rem;
-        }
-        #panel-ops.sidebar-left-collapsed #track-sidebar,
-        #panel-ops.sidebar-right-collapsed #outline-sidebar {
+        #panel-ops.sidebar-left-collapsed #track-sidebar {
           padding: 0.5rem;
         }
         #panel-ops.sidebar-left-collapsed #track-sidebar-body,
-        #panel-ops.sidebar-left-collapsed #track-sidebar-title,
-        #panel-ops.sidebar-right-collapsed #outline-root,
-        #panel-ops.sidebar-right-collapsed #outline-heading,
-        #panel-ops.sidebar-right-collapsed #outline-toggle {
+        #panel-ops.sidebar-left-collapsed #track-sidebar-title {
           display: none;
         }
-        #panel-ops.sidebar-left-collapsed #track-sidebar-header,
-        #panel-ops.sidebar-right-collapsed #outline-sidebar-header {
+        #panel-ops.sidebar-left-collapsed #track-sidebar-header {
           justify-content: center;
           padding-left: 0;
           padding-right: 0;
@@ -547,7 +661,7 @@
       <!-- Ops page -->
       <section
         id="panel-ops"
-        class="hidden grid grid-cols-1 gap-3 lg:grid-cols-[minmax(220px,280px)_minmax(0,1fr)_minmax(220px,280px)] lg:gap-4"
+        class="hidden grid grid-cols-1 gap-3 lg:grid-cols-[minmax(240px,300px)_minmax(0,1fr)] lg:gap-4"
       >
         <!-- Left: tracks (below main on narrow screens) -->
         <aside
@@ -571,67 +685,84 @@
           </div>
 
           <nav id="track-sidebar-body" class="space-y-2">
-            <button
-              type="button"
-              class="track-btn w-full rounded-lg border border-curriculum-accent/50 bg-curriculum-elevated/85 px-3 py-2 text-left ring-1 ring-curriculum-accent/30 transition hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent"
-              data-category="basic"
-              aria-current="true"
-            >
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-sm font-medium text-curriculum-ink">Basic</span>
-                <svg
-                  class="track-chevron h-4 w-4 shrink-0 text-curriculum-accent-hover transition-opacity"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </div>
-              <p class="mt-2 text-xs leading-snug text-curriculum-soft">
-                Foundations, terminology, and first agents for ops workflows.
-              </p>
-            </button>
-
-            <button
-              type="button"
-              disabled
-              aria-disabled="true"
-              aria-label="Advanced User track, locked"
-              title="Locked"
-              class="w-full cursor-not-allowed rounded-lg border border-curriculum-border bg-curriculum-panel px-3 py-2 text-left focus:outline-none"
-            >
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <span class="text-sm font-medium text-curriculum-soft">Advanced User</span>
-                <span class="inline-flex shrink-0 items-center rounded-full bg-curriculum-elevated p-1 text-curriculum-soft" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
+            <div class="track-card" data-track-card="basic">
+              <button
+                type="button"
+                class="track-btn w-full rounded-lg border border-curriculum-accent/50 bg-curriculum-elevated/85 px-3 py-2 text-left ring-1 ring-curriculum-accent/30 transition hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent"
+                data-category="basic"
+                aria-current="true"
+                aria-expanded="true"
+              >
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-sm font-medium text-curriculum-ink">Basic</span>
+                  <svg
+                    class="track-chevron h-4 w-4 shrink-0 text-curriculum-accent-hover transition-opacity"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <path
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M5.5 7V5a2.5 2.5 0 015 0v2"
-                    />
-                    <rect
-                      width="11"
-                      height="8"
-                      x="2.5"
-                      y="7"
-                      rx="1.25"
-                      stroke="currentColor"
-                      stroke-width="1.5"
+                      fill-rule="evenodd"
+                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                      clip-rule="evenodd"
                     />
                   </svg>
-                </span>
-              </div>
-              <p class="mt-2 text-xs leading-snug text-curriculum-faint">
-                Put your agents to work!
-              </p>
-            </button>
+                </div>
+                <p class="mt-2 text-xs leading-snug text-curriculum-soft">
+                  Foundations, terminology, and first agents for ops workflows.
+                </p>
+              </button>
+              <ul
+                id="track-pages-basic"
+                class="track-page-list"
+                aria-label="Basic track pages"
+              ></ul>
+            </div>
+
+            <div class="track-card" data-track-card="advanced-user">
+              <button
+                type="button"
+                disabled
+                aria-disabled="true"
+                aria-label="Advanced User track, locked"
+                title="Locked"
+                class="w-full cursor-not-allowed rounded-lg border border-curriculum-border bg-curriculum-panel px-3 py-2 text-left focus:outline-none"
+                data-category="advanced-user"
+              >
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="text-sm font-medium text-curriculum-soft">Advanced User</span>
+                  <span class="inline-flex shrink-0 items-center rounded-full bg-curriculum-elevated p-1 text-curriculum-soft" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
+                      <path
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5.5 7V5a2.5 2.5 0 015 0v2"
+                      />
+                      <rect
+                        width="11"
+                        height="8"
+                        x="2.5"
+                        y="7"
+                        rx="1.25"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <p class="mt-2 text-xs leading-snug text-curriculum-faint">
+                  Put your agents to work!
+                </p>
+              </button>
+              <ul
+                id="track-pages-advanced-user"
+                class="track-page-list"
+                hidden
+                aria-label="Advanced User track pages"
+              ></ul>
+            </div>
 
             <button
               type="button"
@@ -642,7 +773,7 @@
                 <span class="text-sm font-medium text-curriculum-ink">Glossary</span>
               </div>
               <p class="mt-2 text-xs leading-snug text-curriculum-muted">
-                Central definitions across core and supporting agentic AI concepts.
+                Shared vocabulary for agentic AI at LCLS.
               </p>
             </button>
           </nav>
@@ -680,16 +811,14 @@
                 >
                   <p class="lg:hidden">
                     Use <strong class="text-curriculum-muted">Jump to track</strong> and
-                    <strong class="text-curriculum-muted">Jump to page</strong> below, or scroll for the full
-                    <strong class="text-curriculum-muted">track</strong> buttons and compact
-                    <strong class="text-curriculum-muted">outline</strong>.
+                    <strong class="text-curriculum-muted">Jump to page</strong> below, or expand a
+                    <strong class="text-curriculum-muted">track</strong> on the left for its pages.
                   </p>
                   <p class="hidden lg:block">
-                    Choose a track on the <strong class="text-curriculum-muted">left</strong>; jump between pages in the
-                    <strong class="text-curriculum-muted">outline on the right</strong>.
+                    Choose a track on the <strong class="text-curriculum-muted">left</strong>; expand it to jump between pages.
                   </p>
                   <p class="mt-2">
-                    Use <strong class="text-curriculum-muted">Next</strong> / <strong class="text-curriculum-muted">Previous</strong> or the outline.
+                    Use <strong class="text-curriculum-muted">Next</strong> / <strong class="text-curriculum-muted">Previous</strong> or the expanded track list.
                   </p>
                 </div>
               </details>
@@ -751,45 +880,6 @@
           </div>
         </main>
 
-        <!-- Right: page outline (compact on narrow screens) -->
-        <aside
-          id="outline-sidebar"
-          class="order-3 rounded-xl border border-curriculum-border bg-curriculum-panel p-2 shadow-deck-inset lg:order-none lg:p-3 lg:sticky lg:top-6 lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto"
-          aria-label="Page outline"
-        >
-          <div id="outline-sidebar-header" class="mb-1.5 flex items-center justify-between gap-2 px-0.5 lg:mb-2 lg:px-1">
-            <span id="outline-heading" class="text-[11px] font-medium leading-tight text-curriculum-soft lg:text-xs"
-              >Pages · Basic</span>
-            <div class="flex shrink-0 items-center gap-1">
-              <button
-                type="button"
-                id="outline-toggle"
-                class="hidden shrink-0 rounded px-1.5 py-0.5 text-[10px] text-curriculum-accent-hover hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent lg:px-2 lg:py-1 lg:text-xs"
-                aria-pressed="false"
-                aria-controls="outline-root"
-              >
-                Show all tracks
-              </button>
-              <button
-                type="button"
-                id="outline-sidebar-toggle"
-                class="hidden shrink-0 rounded px-2 py-1 text-xs text-curriculum-accent-hover hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent lg:inline-flex"
-                aria-expanded="true"
-                aria-controls="outline-root"
-                aria-label="Collapse page outline"
-                title="Collapse page outline"
-              >
-                &gt;
-              </button>
-            </div>
-          </div>
-          <div
-            id="outline-root"
-            class="max-h-36 overflow-y-auto rounded-md border border-curriculum-border/90 bg-curriculum-panel/50 p-1.5 text-[11px] leading-snug lg:max-h-[min(24rem,calc(100vh-12rem))] lg:rounded-lg lg:p-2 lg:text-sm lg:leading-normal"
-            role="navigation"
-            aria-label="Pages in this track"
-          ></div>
-        </aside>
       </section>
 
       <footer
@@ -826,6 +916,18 @@
       const TRACK_ORDER = ["basic", "advanced-user"];
       /** Unlocked tracks in the UI; add ids here when a track goes live. */
       const TRACKS_AVAILABLE = ["basic"];
+
+      /** Term titles marked as core in the glossary UI (must match ### headings). */
+      const GLOSSARY_CORE_TITLES = new Set([
+        "Agent",
+        "Harness",
+        "MCP (Model Context Protocol)",
+        "Model",
+        "RAG (Retrieval-Augmented Generation)",
+        "SKILL",
+        "Tooling",
+      ]);
+
 
       function isTrackAvailable(trackId) {
         return TRACKS_AVAILABLE.includes(trackId);
@@ -975,7 +1077,6 @@
       let outlineAllTracks = false;
       const sidebarState = {
         leftCollapsed: false,
-        rightCollapsed: false,
       };
 
       marked.setOptions({
@@ -1259,90 +1360,62 @@
 
       function updateOutlineHighlight() {
         const h = window.location.hash || "";
-        document.querySelectorAll("a.outline-link").forEach((a) => {
+        document.querySelectorAll("a.track-page-link").forEach((a) => {
           const on = a.getAttribute("href") === h;
-          if (on) {
-            a.setAttribute("aria-current", "page");
-          } else {
-            a.removeAttribute("aria-current");
-          }
-          a.classList.toggle("bg-curriculum-elevated", on);
-          a.classList.toggle("text-curriculum-ink", on);
-          a.classList.toggle("text-curriculum-muted", !on);
+          if (on) a.setAttribute("aria-current", "page");
+          else a.removeAttribute("aria-current");
         });
       }
 
-      function renderOutline() {
-        if (!OUTLINE_ROOT) return;
-        const parsed = parseHash();
-        const currentTrack = parsed?.mode === "ops" ? parsed.track : "basic";
-        const tracksToRender = outlineAllTracks
-          ? orderedAvailableTracks()
-          : [currentTrack];
-
-        if (OUTLINE_HEADING) {
-          OUTLINE_HEADING.textContent = outlineAllTracks
-            ? "All tracks"
-            : `Pages · ${CURRICULUM[currentTrack]?.label || currentTrack}`;
-        }
-        OUTLINE_ROOT.setAttribute(
-          "aria-label",
-          outlineAllTracks
-            ? "All curriculum pages"
-            : `Pages in ${CURRICULUM[currentTrack]?.label || currentTrack}`
-        );
-
-        const sectionOrder = ["concepts", "examples", "practice", "production", "criticism"];
-        let html = "";
-        for (const trackId of tracksToRender) {
+      function renderTrackPageLists(activeTrack, pageId) {
+        const onGlossary = pageId === "glossary";
+        for (const trackId of TRACK_ORDER) {
+          const list = document.getElementById(`track-pages-${trackId}`);
+          const btn = document.querySelector(`.track-btn[data-category="${trackId}"]`);
+          if (!list) continue;
+          const expanded =
+            !onGlossary &&
+            isTrackAvailable(trackId) &&
+            activeTrack === trackId;
+          list.hidden = !expanded;
+          if (btn && !btn.disabled) {
+            btn.setAttribute("aria-expanded", expanded ? "true" : "false");
+          }
+          if (!expanded) {
+            list.innerHTML = "";
+            continue;
+          }
           const t = CURRICULUM[trackId];
           if (!t) continue;
-          html += `<div class="mb-2 border-t border-curriculum-border pt-2 first:mt-0 first:border-t-0 first:pt-0 lg:mb-3">`;
-          if (outlineAllTracks) {
-            html += `<div class="px-1 text-[10px] font-semibold uppercase tracking-wide text-curriculum-soft lg:text-xs">${escapeHtml(t.label)}</div>`;
-          }
-          if (trackId === "basic") {
-            const flatPages = t.pages.filter((p) => p.id !== "glossary");
-            html += `<ul class="mt-0.5 space-y-0">`;
-            for (const p of flatPages) {
-              const locked = isBasicLockedPageId(p.id);
-              const indent = outlinePageIndentClass(p);
-              if (locked) {
-                html += `<li><span class="flex items-center gap-1 rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-soft${indent} lg:px-1.5 lg:text-xs lg:leading-normal" title="Locked">${lockIconSvg()}${outlinePageLabelHtml(p)}</span></li>`;
-              } else {
-                const href = hashFor(trackId, p.id);
-                html += `<li><a href="${href}" class="outline-link flex items-center gap-1 rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-muted hover:bg-curriculum-elevated hover:text-curriculum-ink${indent} lg:px-1.5 lg:text-xs lg:leading-normal">${outlinePageLabelHtml(p)}</a></li>`;
-              }
-            }
-            html += `</ul>`;
-          } else {
-            for (const sec of sectionOrder) {
-              const inSection = t.pages.filter((p) => p.section === sec && p.id !== "glossary");
-              if (!inSection.length) continue;
-              html += `<div class="mt-1 px-1 text-[9px] font-medium uppercase leading-tight text-curriculum-faint lg:mt-1.5 lg:text-[10px]">${escapeHtml(sectionHeadingLabel(trackId, sec))}</div>`;
-              html += `<ul class="mt-0.5 space-y-0">`;
-              for (const p of inSection) {
-                const href = hashFor(trackId, p.id);
-                html += `<li><a href="${href}" class="outline-link block rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-muted hover:bg-curriculum-elevated hover:text-curriculum-ink lg:px-1.5 lg:text-xs lg:leading-normal">${escapeHtml(p.title)}</a></li>`;
-              }
-              html += `</ul>`;
-            }
-          }
-          html += `</div>`;
-        }
-        OUTLINE_ROOT.innerHTML = html;
-        OUTLINE_ROOT.querySelectorAll("a.outline-link").forEach((a) => {
-          a.addEventListener("click", (e) => {
-            e.preventDefault();
-            const href = a.getAttribute("href");
-            if (location.hash !== href) {
-              location.hash = href;
+          const pages = (t.pages || []).filter((p) => p.id !== "glossary");
+          let html = "";
+          for (const p of pages) {
+            const locked = trackId === "basic" && isBasicLockedPageId(p.id);
+            if (locked) {
+              html += `<li><span class="track-page-locked" title="Locked">${lockIconSvg()}${outlinePageLabelHtml(p)}</span></li>`;
             } else {
-              loadPageForHash();
+              const href = hashFor(trackId, p.id);
+              html += `<li><a href="${href}" class="track-page-link">${outlinePageLabelHtml(p)}</a></li>`;
             }
+          }
+          list.innerHTML = html;
+          list.querySelectorAll("a.track-page-link").forEach((a) => {
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              const href = a.getAttribute("href");
+              if (location.hash !== href) location.hash = href;
+              else loadPageForHash();
+            });
           });
-        });
+        }
         updateOutlineHighlight();
+      }
+
+      function renderOutline() {
+        const parsed = parseHash();
+        if (parsed?.mode === "ops") {
+          renderTrackPageLists(parsed.track, parsed.pageId);
+        }
       }
 
       function slugifyHeading(text) {
@@ -1353,68 +1426,168 @@
           .replace(/\s+/g, "-");
       }
 
-      function renderGlossaryOutline() {
-        if (!OUTLINE_ROOT || !OUTLINE_HEADING) return;
-        OUTLINE_HEADING.textContent = "Glossary: core + supporting";
-        OUTLINE_ROOT.setAttribute("aria-label", "Glossary core and supporting terms");
+      let glossaryCoreOnly = false;
+      let glossarySearchQuery = "";
 
-        const sectionHeadings = Array.from(CONTENT_EL.querySelectorAll("h2"));
+      function collectGlossaryEntries(root) {
+        const headings = Array.from(root.querySelectorAll("h3"));
+        const entries = [];
+        headings.forEach((h3) => {
+          const title = (h3.textContent || "").trim();
+          if (!title) return;
+          const nodes = [h3];
+          let sib = h3.nextElementSibling;
+          while (sib && sib.tagName !== "H3" && sib.tagName !== "H2" && sib.tagName !== "H1") {
+            nodes.push(sib);
+            sib = sib.nextElementSibling;
+          }
+          const letter = title.charAt(0).toUpperCase();
+          const letterKey = /[A-Z]/.test(letter) ? letter : "#";
+          entries.push({
+            title,
+            letter: letterKey,
+            core: GLOSSARY_CORE_TITLES.has(title),
+            nodes,
+          });
+        });
+        entries.sort((a, b) =>
+          a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+        );
+        return entries;
+      }
+
+      function applyGlossaryFilters(root) {
+        const q = glossarySearchQuery.trim().toLowerCase();
+        const entries = Array.from(root.querySelectorAll(".glossary-entry"));
+        const visibleLetters = new Set();
+        entries.forEach((el) => {
+          const title = (el.dataset.title || "").toLowerCase();
+          const isCore = el.dataset.core === "true";
+          const matchCore = !glossaryCoreOnly || isCore;
+          const matchSearch =
+            !q || title.includes(q) || (el.textContent || "").toLowerCase().includes(q);
+          const show = matchCore && matchSearch;
+          el.hidden = !show;
+          if (show) visibleLetters.add(el.dataset.letter);
+        });
+        root.querySelectorAll(".glossary-letter-heading").forEach((h) => {
+          h.hidden = !visibleLetters.has(h.dataset.letter);
+        });
+        root.querySelectorAll(".glossary-letter-index a").forEach((a) => {
+          const letter = a.dataset.letter;
+          const on = visibleLetters.has(letter);
+          a.style.opacity = on ? "1" : "0.35";
+          a.style.pointerEvents = on ? "auto" : "none";
+          a.setAttribute("aria-disabled", on ? "false" : "true");
+        });
+      }
+
+      function enhanceGlossaryPage() {
+        if (!CONTENT_EL) return;
+        if (CONTENT_EL.querySelector(".glossary-toolbar")) return;
+
+        const entries = collectGlossaryEntries(CONTENT_EL);
+        if (!entries.length) return;
+
         const usedIds = new Set();
-        const sections = [];
-
-        function assignId(el, fallback) {
-          let id = slugifyHeading(el.textContent || fallback);
-          if (!id) id = fallback;
+        function assignId(title) {
+          let id = slugifyHeading(title);
+          if (!id) id = "term";
           let i = 2;
           const base = id;
           while (usedIds.has(id)) id = `${base}-${i++}`;
           usedIds.add(id);
-          el.id = id;
           return id;
         }
 
-        sectionHeadings.forEach((sectionEl) => {
-          const sectionTitle = (sectionEl.textContent || "").trim();
-          const sectionId = assignId(sectionEl, "section");
-          const terms = [];
-          let sib = sectionEl.nextElementSibling;
-          while (sib && sib.tagName !== "H2") {
-            if (sib.tagName === "H3") {
-              const termId = assignId(sib, "term");
-              const rawTitle = (sib.textContent || "").trim();
-              const navTitle = rawTitle.replace(/\s*\([^)]*\)\s*/g, "").trim();
-              terms.push({ title: navTitle || rawTitle, id: termId });
-            }
-            sib = sib.nextElementSibling;
+        const frag = document.createDocumentFragment();
+        const h1 = CONTENT_EL.querySelector("h1");
+        if (h1) frag.appendChild(h1.cloneNode(true));
+
+        const toolbar = document.createElement("div");
+        toolbar.className = "glossary-toolbar";
+        toolbar.innerHTML =
+          '<input type="search" id="glossary-search" placeholder="Search terms…" aria-label="Search glossary terms" autocomplete="off" />' +
+          '<button type="button" class="glossary-core-filter" id="glossary-core-filter" aria-pressed="false">Core terms</button>';
+        frag.appendChild(toolbar);
+
+        const letters = [...new Set(entries.map((e) => e.letter))].sort();
+        const letterNav = document.createElement("div");
+        letterNav.className = "glossary-letter-index";
+        letterNav.setAttribute("aria-label", "Jump to letter");
+        letterNav.innerHTML = letters
+          .map((L) => `<a href="#glossary-letter-${L}" data-letter="${L}">${L}</a>`)
+          .join("");
+        frag.appendChild(letterNav);
+
+        let currentLetter = null;
+        for (const entry of entries) {
+          if (entry.letter !== currentLetter) {
+            currentLetter = entry.letter;
+            const lh = document.createElement("div");
+            lh.className = "glossary-letter-heading";
+            lh.id = `glossary-letter-${currentLetter}`;
+            lh.dataset.letter = currentLetter;
+            lh.textContent = currentLetter;
+            frag.appendChild(lh);
           }
-          sections.push({ title: sectionTitle, id: sectionId, terms });
-        });
+          const wrap = document.createElement("div");
+          wrap.className = "glossary-entry";
+          wrap.dataset.title = entry.title;
+          wrap.dataset.core = entry.core ? "true" : "false";
+          wrap.dataset.letter = entry.letter;
+          wrap.id = assignId(entry.title);
 
-        let html = "";
-        sections.forEach((section) => {
-          if (!section.terms.length) return;
-          html += `<div class="mb-2 rounded-md border border-curriculum-border/90 bg-curriculum-panel/50 p-2 lg:mb-3 lg:rounded-lg">`;
-          html += `<div class="px-1 text-[10px] font-semibold uppercase tracking-wide text-curriculum-soft lg:text-xs">${escapeHtml(section.title)}</div>`;
-          html += `<ul class="mt-1 space-y-0">`;
-          section.terms.forEach((term) => {
-            html += `<li><a href="#${term.id}" class="glossary-link block rounded px-1 py-0.5 text-[11px] leading-snug text-curriculum-muted hover:bg-curriculum-elevated hover:text-curriculum-ink lg:px-1.5 lg:text-xs lg:leading-normal">${escapeHtml(term.title)}</a></li>`;
+          const titleRow = document.createElement("div");
+          titleRow.className = "glossary-entry-title";
+          const h3 = document.createElement("h3");
+          h3.textContent = entry.title;
+          titleRow.appendChild(h3);
+          if (entry.core) {
+            const badge = document.createElement("span");
+            badge.className = "glossary-core-badge";
+            badge.textContent = "core";
+            badge.title = "Core term";
+            titleRow.appendChild(badge);
+          }
+          wrap.appendChild(titleRow);
+
+          entry.nodes.forEach((node, idx) => {
+            if (idx === 0) return;
+            wrap.appendChild(node.cloneNode(true));
           });
-          html += `</ul></div>`;
+          frag.appendChild(wrap);
+        }
+
+        CONTENT_EL.innerHTML = "";
+        CONTENT_EL.appendChild(frag);
+
+        const search = CONTENT_EL.querySelector("#glossary-search");
+        const coreBtn = CONTENT_EL.querySelector("#glossary-core-filter");
+        glossaryCoreOnly = false;
+        glossarySearchQuery = "";
+        search?.addEventListener("input", () => {
+          glossarySearchQuery = search.value || "";
+          applyGlossaryFilters(CONTENT_EL);
         });
-
-        OUTLINE_ROOT.innerHTML =
-          html || `<div class="px-1 py-1 text-xs text-curriculum-soft">No terms found.</div>`;
-
-        OUTLINE_ROOT.querySelectorAll("a.glossary-link").forEach((a) => {
+        coreBtn?.addEventListener("click", () => {
+          glossaryCoreOnly = !glossaryCoreOnly;
+          coreBtn.setAttribute("aria-pressed", glossaryCoreOnly ? "true" : "false");
+          applyGlossaryFilters(CONTENT_EL);
+        });
+        CONTENT_EL.querySelectorAll(".glossary-letter-index a").forEach((a) => {
           a.addEventListener("click", (e) => {
             e.preventDefault();
             const id = (a.getAttribute("href") || "").replace(/^#/, "");
             const target = CONTENT_EL.querySelector(`#${CSS.escape(id)}`);
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
+            target?.scrollIntoView({ behavior: "smooth", block: "start" });
           });
         });
+        applyGlossaryFilters(CONTENT_EL);
+      }
+
+      function renderGlossaryOutline() {
+        enhanceGlossaryPage();
       }
 
       function setTopTab(active) {
@@ -1449,10 +1622,8 @@
         try {
           const saved = JSON.parse(localStorage.getItem(SIDEBAR_STORAGE_KEY) || "{}");
           sidebarState.leftCollapsed = Boolean(saved.leftCollapsed);
-          sidebarState.rightCollapsed = Boolean(saved.rightCollapsed);
         } catch (_) {
           sidebarState.leftCollapsed = false;
-          sidebarState.rightCollapsed = false;
         }
       }
 
@@ -1464,7 +1635,6 @@
 
       function syncSidebarToggleUi() {
         PANEL_OPS?.classList.toggle("sidebar-left-collapsed", sidebarState.leftCollapsed);
-        PANEL_OPS?.classList.toggle("sidebar-right-collapsed", sidebarState.rightCollapsed);
 
         if (TRACK_SIDEBAR_TOGGLE) {
           const expanded = !sidebarState.leftCollapsed;
@@ -1480,19 +1650,6 @@
           TRACK_SIDEBAR_TOGGLE.textContent = expanded ? "<" : ">";
         }
 
-        if (OUTLINE_SIDEBAR_TOGGLE) {
-          const expanded = !sidebarState.rightCollapsed;
-          OUTLINE_SIDEBAR_TOGGLE.setAttribute("aria-expanded", expanded ? "true" : "false");
-          OUTLINE_SIDEBAR_TOGGLE.setAttribute(
-            "aria-label",
-            expanded ? "Collapse page outline" : "Expand page outline"
-          );
-          OUTLINE_SIDEBAR_TOGGLE.setAttribute(
-            "title",
-            expanded ? "Collapse page outline" : "Expand page outline"
-          );
-          OUTLINE_SIDEBAR_TOGGLE.textContent = expanded ? ">" : "<";
-        }
       }
 
       function wireSidebarToggles() {
@@ -1501,22 +1658,9 @@
           saveSidebarState();
           syncSidebarToggleUi();
         });
-        OUTLINE_SIDEBAR_TOGGLE?.addEventListener("click", () => {
-          sidebarState.rightCollapsed = !sidebarState.rightCollapsed;
-          saveSidebarState();
-          syncSidebarToggleUi();
-        });
       }
 
-      function wireOutlineToggle() {
-        if (!OUTLINE_TOGGLE || !OUTLINE_ROOT) return;
-        OUTLINE_TOGGLE.addEventListener("click", () => {
-          outlineAllTracks = !outlineAllTracks;
-          OUTLINE_TOGGLE.setAttribute("aria-pressed", outlineAllTracks ? "true" : "false");
-          OUTLINE_TOGGLE.textContent = outlineAllTracks ? "This track only" : "Show all tracks";
-          renderOutline();
-        });
-      }
+      function wireOutlineToggle() {}
 
       function updateToolbar(trackId, pageId) {
         const page = findPage(trackId, pageId);
@@ -1658,7 +1802,21 @@
         const fullHash = hashFor(track, pageId);
         const isGlossary = pageId === "glossary";
 
-        setActiveTrackButton(track);
+        if (isGlossary) {
+          document.querySelectorAll(".track-btn").forEach((btn) => {
+            btn.setAttribute("aria-current", "false");
+            btn.classList.remove(
+              "border-curriculum-accent/50",
+              "bg-curriculum-elevated/85",
+              "ring-1",
+              "ring-curriculum-accent/30"
+            );
+            btn.classList.add("border-transparent", "bg-curriculum-panel/40");
+            if (!btn.disabled) btn.setAttribute("aria-expanded", "false");
+          });
+        } else {
+          setActiveTrackButton(track);
+        }
         setOpsGlossaryMode(isGlossary);
         if (!isGlossary) {
           updateToolbar(track, pageId);
@@ -1779,10 +1937,8 @@
 
       function updateTrackAvailabilityUi() {
         if (TRACKS_AVAILABLE.length > 1) {
-          OUTLINE_TOGGLE?.classList.remove("hidden");
           MOBILE_TRACK_WRAP?.classList.remove("hidden");
         } else {
-          OUTLINE_TOGGLE?.classList.add("hidden");
           MOBILE_TRACK_WRAP?.classList.add("hidden");
           outlineAllTracks = false;
         }
