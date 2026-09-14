@@ -1,16 +1,47 @@
 <div class="content-tabs">
 
 <div class="content-tab-list" role="tablist" aria-label="Harness setup">
-<button type="button" class="content-tab" role="tab" aria-selected="true" aria-controls="tabpanel-lcls-sandbox" id="content-tab-btn-lcls-sandbox">LCLS Sandbox</button>
+<button type="button" class="content-tab" role="tab" aria-selected="true" aria-controls="tabpanel-lcls-claudecode" id="content-tab-btn-lcls-claudecode">LCLS ClaudeCode</button>
+<button type="button" class="content-tab" role="tab" aria-selected="false" aria-controls="tabpanel-lcls-sandbox" id="content-tab-btn-lcls-sandbox">LCLS OpenCode Sandbox</button>
 <button type="button" class="content-tab" role="tab" aria-selected="false" aria-controls="tabpanel-other-harnesses" id="content-tab-btn-other-harnesses">Other harnesses</button>
 </div>
 
-<div class="content-tab-panel" role="tabpanel" id="tabpanel-lcls-sandbox" aria-labelledby="content-tab-btn-lcls-sandbox">
+<div class="content-tab-panel" role="tabpanel" id="tabpanel-lcls-claudecode" aria-labelledby="content-tab-btn-lcls-claudecode">
 
 **1. Access LCLS interactive nodes on S3DF**
 
 ```bash
-ssh s3dflogin-mfa.slac.stanford.edu
+ssh s3dflogin.slac.stanford.edu
+ssh psana
+```
+
+**2. Install Claude Code in LCLS**
+
+```bash
+/sdf/group/lcls/ds/dm/apps/dev/claude/install-claude-lcls.sh
+```
+
+**3. Launch ClaudeCode!**
+
+```bash
+claude-lcls
+```
+
+*If you get a permission error, reach out to be added to ps-users group.*
+
+**4. (optional) Use your own API key**
+
+1. Request a key from [SLAC IT](https://slacprod.servicenowservices.com/it_services?id=sc_cat_item&sys_id=515f28711b607110c5d320eae54bcb64).
+2. Ask ClaudeCode to set it up for you.
+
+</div>
+
+<div class="content-tab-panel hidden" role="tabpanel" id="tabpanel-lcls-sandbox" aria-labelledby="content-tab-btn-lcls-sandbox" hidden>
+
+**1. Access LCLS interactive nodes on S3DF**
+
+```bash
+ssh s3dflogin.slac.stanford.edu
 ssh psana
 ```
 
@@ -27,6 +58,11 @@ opencode-sandbox
 ```
 
 *If you get a permission error, reach out to be added to ps-users group.*
+
+**4. (optional) Use your own API key**
+
+1. Request a key from [SLAC IT](https://slacprod.servicenowservices.com/it_services?id=sc_cat_item&sys_id=515f28711b607110c5d320eae54bcb64).
+2. Ask OpenCode to set it up for you.
 
 </div>
 
