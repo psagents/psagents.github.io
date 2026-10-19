@@ -719,48 +719,38 @@
               ></ul>
             </div>
 
-            <div class="track-card" data-track-card="advanced-user">
+            <div class="track-card" data-track-card="bring-tools">
               <button
                 type="button"
-                disabled
-                aria-disabled="true"
-                aria-label="Advanced User track, locked"
-                title="Locked"
-                class="w-full cursor-not-allowed rounded-lg border border-curriculum-border bg-curriculum-panel px-3 py-2 text-left focus:outline-none"
-                data-category="advanced-user"
+                class="track-btn w-full rounded-lg border border-transparent bg-curriculum-panel/40 px-3 py-2 text-left transition hover:bg-curriculum-elevated focus:outline-none focus:ring-2 focus:ring-curriculum-accent"
+                data-category="bring-tools"
+                aria-current="false"
+                aria-expanded="false"
               >
-                <div class="flex flex-wrap items-center justify-between gap-2">
-                  <span class="text-sm font-medium text-curriculum-soft">Advanced User</span>
-                  <span class="inline-flex shrink-0 items-center rounded-full bg-curriculum-elevated p-1 text-curriculum-soft" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
-                      <path
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M5.5 7V5a2.5 2.5 0 015 0v2"
-                      />
-                      <rect
-                        width="11"
-                        height="8"
-                        x="2.5"
-                        y="7"
-                        rx="1.25"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                      />
-                    </svg>
-                  </span>
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-sm font-medium text-curriculum-ink">Bring Tools to AIs</span>
+                  <svg
+                    class="track-chevron h-4 w-4 shrink-0 text-curriculum-accent-hover transition-opacity"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                 </div>
-                <p class="mt-2 text-xs leading-snug text-curriculum-faint">
-                  Put your agents to work!
+                <p class="mt-2 text-xs leading-snug text-curriculum-soft">
+                  The agent stack: bring tools to agents, and check access at the tool.
                 </p>
               </button>
               <ul
-                id="track-pages-advanced-user"
+                id="track-pages-bring-tools"
                 class="track-page-list"
                 hidden
-                aria-label="Advanced User track pages"
+                aria-label="Bring Tools to AIs pages"
               ></ul>
             </div>
 
@@ -913,9 +903,9 @@
     </div>
 
     <script>
-      const TRACK_ORDER = ["basic", "advanced-user"];
+      const TRACK_ORDER = ["basic", "bring-tools"];
       /** Unlocked tracks in the UI; add ids here when a track goes live. */
-      const TRACKS_AVAILABLE = ["basic"];
+      const TRACKS_AVAILABLE = ["basic", "bring-tools"];
 
       /** Term titles marked as core in the glossary UI (must match ### headings). */
       const GLOSSARY_CORE_TITLES = new Set([
@@ -1008,39 +998,14 @@
             },
           ],
         },
-        "advanced-user": {
-          label: "Advanced User",
-          blurb: "Put your agents to work!",
+        "bring-tools": {
+          label: "Bring Tools to AIs",
+          blurb: "The agent stack: bring tools to agents, and check access at the tool.",
           pages: [
             {
-              id: "concepts",
-              title: "Concepts and Take-aways",
-              path: "content/ops/advanced-user/concepts.md",
-              section: "concepts",
-            },
-            {
-              id: "practice/example-01",
-              title: "One-page agent brief",
-              path: "content/ops/advanced-user/practice/example-01.md",
-              section: "practice",
-            },
-            {
-              id: "practice/example-02",
-              title: "Rubric for “good enough” output",
-              path: "content/ops/advanced-user/practice/example-02.md",
-              section: "practice",
-            },
-            {
-              id: "production/example-01",
-              title: "Review an agent run on S3DF",
-              path: "content/ops/advanced-user/production/example-01.md",
-              section: "production",
-            },
-            {
-              id: "production/example-02",
-              title: "Compare two prompts (read-only tool)",
-              path: "content/ops/advanced-user/production/example-02.md",
-              section: "production",
+              id: "stack",
+              title: "Agent stack",
+              embed: "lcls-agent-stack.html",
             },
           ],
         },
@@ -1158,10 +1123,24 @@
         if (raw === "welcome") return { mode: "welcome" };
         if (!raw) return null;
         const parts = raw.split("/").filter(Boolean);
-        if (parts.length < 2) return null;
-        const track = parts[0];
-        const pageId = parts.slice(1).join("/");
-        return { mode: "ops", track, pageId };
+        if (!parts.length) return null;
+
+        if (parts[0] === "ops") {
+          if (parts[1] === "glossary") return { mode: "ops", track: "basic", pageId: "glossary" };
+          if (parts[1] === "bring-tools") return { mode: "ops", track: "bring-tools", pageId: "stack" };
+          if (parts[1] === "basic" && parts.length >= 3) {
+            return { mode: "ops", track: "basic", pageId: parts.slice(2).join("/") };
+          }
+          return null;
+        }
+
+        if (parts[0] === "basic" && parts.length >= 2) {
+          return { mode: "legacy", track: "basic", pageId: parts.slice(1).join("/") };
+        }
+        if (parts[0] === "advanced-user") {
+          return { mode: "legacy", track: "bring-tools", pageId: "stack" };
+        }
+        return null;
       }
 
       function findPage(trackId, pageId) {
@@ -1186,7 +1165,9 @@
       }
 
       function hashFor(trackId, pageId) {
-        return `#${trackId}/${pageId}`;
+        if (trackId === "basic" && pageId === "glossary") return "#ops/glossary";
+        if (trackId === "bring-tools") return "#ops/bring-tools";
+        return `#ops/${trackId}/${pageId}`;
       }
 
       function setLoading(message) {
@@ -1611,11 +1592,19 @@
         PANEL_OPS?.classList.toggle("hidden", !isOps);
       }
 
-      function setOpsGlossaryMode(enabled) {
-        OPS_INTRO_CARD?.classList.toggle("hidden", enabled);
-        MOBILE_JUMP_CONTROLS?.classList.toggle("hidden", enabled);
-        OPS_TOOLBAR?.classList.toggle("hidden", enabled);
-        CONTENT_EL?.classList.toggle("glossary-readable", enabled);
+      function setOpsChrome(mode) {
+        const hide = mode === "glossary" || mode === "embed";
+        OPS_INTRO_CARD?.classList.toggle("hidden", hide);
+        MOBILE_JUMP_CONTROLS?.classList.toggle("hidden", hide);
+        OPS_TOOLBAR?.classList.toggle("hidden", hide);
+        CONTENT_EL?.classList.toggle("glossary-readable", mode === "glossary");
+        const glossaryBtn = document.querySelector("[data-glossary-link]");
+        if (glossaryBtn) {
+          const on = mode === "glossary";
+          glossaryBtn.setAttribute("aria-current", on ? "true" : "false");
+          glossaryBtn.classList.toggle("ring-2", on);
+          glossaryBtn.classList.toggle("ring-curriculum-warm", on);
+        }
       }
 
       function loadSidebarState() {
@@ -1770,6 +1759,11 @@
 
         setTopTab("ops");
         lastLoadedWelcome = false;
+        if (parsed?.mode === "legacy") {
+          const pageId = parsed.track === "basic" ? resolveBasicPageId(parsed.pageId) : parsed.pageId;
+          history.replaceState(null, "", hashFor(parsed.track, pageId));
+          parsed = parseHash();
+        }
         if (parsed?.mode === "ops" && parsed.track === "basic") {
           const resolved = resolveBasicPageId(parsed.pageId);
           if (resolved !== parsed.pageId) {
@@ -1801,6 +1795,7 @@
 
         const fullHash = hashFor(track, pageId);
         const isGlossary = pageId === "glossary";
+        const isEmbed = Boolean(page.embed);
 
         if (isGlossary) {
           document.querySelectorAll(".track-btn").forEach((btn) => {
@@ -1817,7 +1812,7 @@
         } else {
           setActiveTrackButton(track);
         }
-        setOpsGlossaryMode(isGlossary);
+        setOpsChrome(isGlossary ? "glossary" : isEmbed ? "embed" : "article");
         if (!isGlossary) {
           updateToolbar(track, pageId);
           populateMobileTrackSelect();
@@ -1839,10 +1834,14 @@
         setLoading("Loading…");
 
         try {
-          const mdText = await loadMarkdown(page.path);
-          renderMarkdown(mdText);
-          if (isGlossary) {
-            renderGlossaryOutline();
+          if (isEmbed) {
+            CONTENT_EL.innerHTML = `<iframe title="${escapeHtml(page.title)}" src="${escapeHtml(page.embed)}" class="h-[85vh] w-full border-0 bg-white"></iframe>`;
+          } else {
+            const mdText = await loadMarkdown(page.path);
+            renderMarkdown(mdText);
+            if (isGlossary) {
+              renderGlossaryOutline();
+            }
           }
         } catch (err) {
           lastLoadedHash = "";
